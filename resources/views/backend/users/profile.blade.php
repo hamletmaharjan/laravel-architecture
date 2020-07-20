@@ -6,29 +6,37 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Profile
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">User</a></li>
-                <li class="active">Profile</li>
-            </ol>
+
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{'Profile'}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item">{{'User'}}</li>
+                            <li class="breadcrumb-item active">{{'Profile'}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
+
         <!-- Main content -->
         <section class="content">
             @include('backend.message.flash')
-            <div class="box box-default">
-                <div class="box-header with-border">
+            <div class="card card-default">
+                <div class="card-header with-border">
                     <a href="{{url('dashboard')}}" class="pull-right" data-toggle="tooltip" title="Go Back"><i
                                 class="fa fa-arrow-circle-left fa-2x"></i></a>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Profile Image -->
-                            <div class="box box-primary">
-                                <div class="box-body box-profile">
+                            <div class="card card-primary">
+                                <div class="card-body card-profile">
                                     <a data-toggle="modal" data-target="#myModal">
                                         @if($user->user_image!=null)
                                             <img class="profile-user-img img-responsive img-circle"
@@ -69,15 +77,15 @@
 
                                 </div>
                             </div>
-                            <!-- /.box -->
+                            <!-- /.card -->
 
                             <!-- About Me Box -->
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">About Me</h3>
+                            <div class="card card-primary">
+                                <div class="card-header with-border">
+                                    <h3 class="card-title">About Me</h3>
                                 </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
+                                <!-- /.card-header -->
+                                <div class="card-body">
                                     <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
                                     <p class="text-muted">
                                         {{$user->email}}
@@ -88,20 +96,23 @@
                                         <?php echo \Carbon\Carbon::createFromTimeStamp(strtotime($lastLogin))->diffForHumans() ?>
                                     </p>
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.box -->
+                            <!-- /.card -->
                         </div>
                         <!-- /.col -->
                         <div class="col-md-9">
                             <div class="nav-tabs-custom">
-                                <ul class="nav nav-tabs">
-                                    <li id="settings_li" class="active">
-                                        <a href="#settings" data-toggle="tab" id="setting_tab">Settings</a>
+                                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Setting</a>
                                     </li>
+
                                 </ul>
-                                <div class="tab-content active">
-                                    <div class="tab-pane active" id="settings">
+
+                                <div class="tab-content" id="custom-content-above-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab" style="padding-top: 20px;">
+
                                         <form id="myform" class="form-horizontal" action="{{url('/profile/password')}}" method="post">
                                             <div class="form-group {{ ($errors->has('old'))?'has-error':''}}">
 
@@ -140,8 +151,9 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <!-- /.tab-pane -->
+
                                 </div>
+
                                 <!-- /.tab-content -->
                             </div>
                             <!-- /.nav-tabs-custom -->
@@ -149,9 +161,9 @@
                         <!-- /.col -->
                     </div>
                 </div>
-                <!-- /.box-body -->
+                <!-- /.card-body -->
             </div>
-            <!-- /.box -->
+            <!-- /.card -->
         </section>
         <!-- /.content -->
     </div>

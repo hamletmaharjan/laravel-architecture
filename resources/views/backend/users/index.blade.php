@@ -5,14 +5,20 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                User
-                {{--<small>Menu</small>--}}
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"> Home</a></li>
-                <li class="active">User</li>
-            </ol>
+
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>User</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item active">User</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
 
         <!-- Main content -->
@@ -25,22 +31,25 @@
                             <div class="col-md-12" id="listing">
                                 @endif
 
-                                <div class="box box-default">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">User</h3>
-                                        <?php
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">User</h3>
+                                        <div class="pull-right">
+                                            <?php
 
-                                        $permission = helperPermissionLink(url('user'), url('user'));
+                                            $permission = helperPermissionLink(url('user'), url('user'));
 
-                                        $allowEdit = $permission['isEdit'];
+                                            $allowEdit = $permission['isEdit'];
 
-                                        $allowDelete = $permission['isDelete'];
+                                            $allowDelete = $permission['isDelete'];
 
-                                        $allowAdd = $permission['isAdd'];
+                                            $allowAdd = $permission['isAdd'];
 
-                                        ?>
+                                            ?>
+                                        </div>
+
                                     </div>
-                                    <div class="box-body">
+                                    <div class="card-body">
                                         @if(!count($users)<=0)
                                             <div class="table-responsive">
                                                 <table id="example1"

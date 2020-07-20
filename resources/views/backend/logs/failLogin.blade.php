@@ -4,15 +4,23 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+
         <section class="content-header">
-            <h1>
-                Logs
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-                <li><a href="#">Logs</a></li>
-                <li class="active">Login Fails</li>
-            </ol>
+
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Logs</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item">Logs</li>
+                            <li class="breadcrumb-item active">Login Fails</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
 
         <!-- Main content -->
@@ -22,12 +30,12 @@
             <div class="row">
 
                 <div class="col-md-12" id="listing">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Login Fails</h3>
+                    <div class="card card-default">
+                        <div class="card-header with-border">
+                            <h3 class="card-title">Login Fails</h3>
 
                         </div>
-                        <div class="box-body">
+                        <div class="card-body">
                             <table id="example1" class="table table-striped table-bordered table-hover table-responsive">
                                 <thead>
                                 <tr>
@@ -56,9 +64,9 @@
 
                         </div>
 
-                        <!-- /.box-body -->
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.box -->
+                    <!-- /.card -->
                 </div>
 
 

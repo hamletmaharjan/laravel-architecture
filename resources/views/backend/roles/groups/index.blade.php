@@ -3,17 +3,23 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+
         <section class="content-header">
-            <h1>
-                Roles
-                {{--<small>Menu</small>--}}
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"> Home</a></li>
-                <li><a href="#">Roles</a></li>
-                <li class="active">Groups</li>
-            </ol>
+
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Group</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item">Roles</li>
+                            <li class="breadcrumb-item active">Groups</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
 
         <!-- Main content -->
@@ -25,9 +31,9 @@
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
-                                <div class="box box-default">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Groups</h3>
+                                <div class="card card-default">
+                                    <div class="card-header with-border">
+                                        <h3 class="card-title">Groups</h3>
                                         <?php
 
                                         $permission = helperPermission();
@@ -42,16 +48,16 @@
                                         <a href="{{url('roles/group')}}" class="pull-right  boxTopButton"
                                            data-toggle="tooltip" title="Go Back"><i
                                                     class="fa fa-arrow-circle-left fa-2x"></i></a>
-
                                     </div>
-                                    <div class="box-body">
+
+                                    <div class="card-body">
 
                                         @if(!count($groups)<=0)
                                             <div class="table-responsive">
-                                                <table id="example1" class="table table-hover table-striped table-bordered table-responsive">
+                                                <table id="example2" class="table table-hover table-striped  table-bordered table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th style="width: 10px">S.N</th>
+                                                        <th>S.N</th>
                                                         <th>Name</th>
                                                         <th>Details</th>
                                                         <th style="width: 50px" class="text-right">Action</th>
@@ -110,9 +116,9 @@
 
                                     </div>
 
-                                    <!-- /.box-body -->
+                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.box -->
+                                <!-- /.card -->
                             </div>
 
                             @if($allowAdd)
@@ -126,6 +132,7 @@
                                 </div>
                             @endif
                     </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
