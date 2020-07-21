@@ -1,4 +1,8 @@
 @extends('backend.layouts.app')
+@section('title')
+    Dashboard
+@endsection
+
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -23,6 +27,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
             <div class="row">
                 @if(helperPermission()['isAdd'])
@@ -33,7 +38,7 @@
 
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">User</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> User</h3>
                                         <div class="pull-right">
                                             <?php
 
@@ -153,6 +158,7 @@
                                 </div>
                             @endif
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

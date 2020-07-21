@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+  Dashboard
+@endsection
 
 @section('content')
 
@@ -25,6 +28,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             <!-- Info boxes -->
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -134,6 +138,7 @@
 
                 <div class="clearfix visible-sm-block"></div>
 
+            </div>
             </div>
         </section>
     </div>

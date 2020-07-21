@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Feedback Edit
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->

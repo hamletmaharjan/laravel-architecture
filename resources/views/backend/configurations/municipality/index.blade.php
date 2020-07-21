@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Municipality
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -24,6 +27,8 @@
 
         <!-- Main content -->
         <section class="content">
+
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -36,7 +41,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">Municipality</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> Municipality</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/municipality'), url('/configurations/municipality'));
@@ -49,7 +54,7 @@
                                         ?>
                                     </div>
                                     <div class="card-body">
-                                        <table id="example1" class="table table-striped table-bordered table-hover table-responsive">
+                                        <table id="example3" class="table table-striped table-bordered table-hover table-responsive">
                                             <thead>
                                             <tr>
                                                 <th style="width: 10px;">{{trans('app.sn')}}</th>
@@ -57,21 +62,23 @@
                                                 <th>Municipality Type Name</th>
                                                 <th>Municipality Code</th>
                                                 <th>Municipality Name</th>
-                                                <th>Municipality English Name</th>
                                                 <th style="width: 10px" ;
                                                     class="text-right">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php $i = 1;?>
-                                            @forelse($municipalities as $municipality)
+                                            @forelse($municipalities as $key=>$municipality)
                                                 <tr>
-                                                    <th scope=row>{{$i}}</th>
+                                                    <th scope=row>{{ ($municipalities->currentpage()-1) * $municipalities->perpage() + $key+1 }}</th>
                                                     <td>{{$municipality->district->nepali_name}}</td>
                                                     <td>{{$municipality->muniType->muni_type_name}}</td>
                                                     <td>{{$municipality->muni_code}}</td>
-                                                    <td>{{$municipality->muni_name}}</td>
-                                                    <td>{{$municipality->muni_name_en}}</td>
+                                                    <td>
+                                                        {{$municipality->muni_name}}<br/>
+                                                        {{$municipality->muni_name_en}}
+
+                                                    </td>
 
                                                     <td class="text-right">
                                                         @if($allowEdit)
@@ -106,7 +113,9 @@
 
                                     </div>
 
-                                    <!-- /.card-body -->
+                                {{$municipalities->appends(request()->input())->links()}}
+
+                                <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
                             </div>
@@ -123,6 +132,7 @@
                             @endif
 
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

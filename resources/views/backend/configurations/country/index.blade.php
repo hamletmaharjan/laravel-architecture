@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Country
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -24,9 +27,11 @@
 
         <!-- Main content -->
         <section class="content">
+
+            <div class="container-fluid">
             @include('backend.message.flash')
 
-            <div class="row">
+                <div class="row">
 
                 @if(helperPermission()['isAdd'])
 
@@ -36,7 +41,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">{{trans('app.country')}}</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> {{trans('app.country')}}</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/country'), url('/configurations/country'));
@@ -134,6 +139,7 @@
                             @endif
 
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

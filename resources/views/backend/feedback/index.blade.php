@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Feedback
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -24,18 +27,19 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
             <div class="card card-default">
                 <div class="card-header with-border">
-                    <h3 class="card-title"><strong>Feedback</strong></h3>
+                    <h3 class="card-title"><strong><i class="fa fa-list"></i> Feedback</strong></h3>
                     <a href="{{url('/feedback/create')}}" class="pull-right cardTopButton" id="add" data-toggle="tooltip"
-                       title="Add New"><i class="fa fa-plus-circle fa-2x"></i></a>
+                       title="Add New"><i class="fa fa-plus-circle fa-2x" style="font-size:20px;"></i></a>
 
                     <a href="{{url('/feedback')}}" class="pull-right cardTopButton" data-toggle="tooltip"
-                       title="View All"><i class="fa fa-list fa-2x"></i></a>
+                       title="View All"><i class="fa fa-list fa-2x" style="font-size:20px;"></i></a>
 
                     <a href="{{URL::previous()}}" class="pull-right cardTopButton" data-toggle="tooltip" title="Go Back">
-                        <i class="fa fa-arrow-circle-left fa-2x"></i></a>
+                        <i class="fa fa-arrow-circle-left fa-2x" style="font-size:20px;"></i></a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -83,6 +87,7 @@
                     </div>
                 </div>
             </div>
+            </div> {{--cONTAINER FLUID CLOSE--}}
         </section>
     </div>
 @endsection

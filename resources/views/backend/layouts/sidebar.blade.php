@@ -21,7 +21,6 @@
             </div>
             <div class="info">
                 <a href="{{url('dashboard')}}" class="d-block">{{Auth::user()->name}}</a>
-                <a href="{{url('dashboard')}}" class="d-block">Programmer</a>
             </div>
         </div>
 

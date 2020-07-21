@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    District
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -26,6 +29,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -38,7 +42,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">District</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> District</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/district'), url('/configurations/district'));
@@ -123,6 +127,7 @@
                             @endif
 
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

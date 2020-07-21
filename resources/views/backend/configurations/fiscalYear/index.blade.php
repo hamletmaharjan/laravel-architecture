@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
-
+@section('title')
+    Fiscal Year
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -26,6 +28,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -38,7 +41,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">{{trans('app.fiscalYear')}}</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> {{trans('app.fiscalYear')}}</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/fiscalYear'), url('/configurations/fiscalYear'));
@@ -141,6 +144,7 @@
                                 </div>
                             @endif
                     </div>
+            </div>
             </div>
         </section>
     </div>

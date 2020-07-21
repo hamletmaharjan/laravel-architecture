@@ -25,6 +25,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -70,6 +71,7 @@
                 </div>
 
 
+            </div>
             </div>
         </section>
         <!-- /.content -->

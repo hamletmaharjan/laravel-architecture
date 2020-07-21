@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Office
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -24,6 +27,8 @@
         </section>
         <!-- Main content -->
         <section class="content">
+
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -36,7 +41,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">Office</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> Office</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/office'),url('/configurations/office'));
@@ -139,6 +144,7 @@
                             @endif
 
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

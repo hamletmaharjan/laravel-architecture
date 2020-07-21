@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Menus
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -25,6 +28,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
             <div class="row">
                 @if(helperPermission()['isAdd'])
@@ -34,7 +38,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">Menu</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> Menu</h3>
                                         <?php
 
                                         $permission = helperPermission(url('/roles/menu'), url('/roles/menu'));
@@ -46,10 +50,10 @@
                                         $allowAdd = $permission['isAdd'];
                                         ?>
                                         <a href="{{url('roles/menu')}}" class="pull-right boxTopButton"
-                                           data-toggle="tooltip" title="View All"><i class="fa fa-list fa-2x"></i></a>
+                                           data-toggle="tooltip" title="View All"><i class="fa fa-list fa-2x" style="font-size:20px;"></i></a>
                                         <a href="{{url('roles/menu')}}" class="pull-right  boxTopButton"
                                            data-toggle="tooltip" title="Go Back"><i
-                                                    class="fa fa-arrow-circle-left fa-2x"></i></a>
+                                                    class="fa fa-arrow-circle-left fa-2x" style="font-size:20px;"></i></a>
                                     </div>
                                     <div class="card-body">
 
@@ -159,6 +163,7 @@
                                 </div>
                             @endif
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->

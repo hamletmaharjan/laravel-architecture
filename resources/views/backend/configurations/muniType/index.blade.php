@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('title')
+    Municiplaity Type
+@endsection
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -25,6 +28,8 @@
 
         <!-- Main content -->
         <section class="content">
+
+            <div class="container-fluid">
             @include('backend.message.flash')
 
             <div class="row">
@@ -37,7 +42,7 @@
                                 @endif
                                 <div class="card card-default">
                                     <div class="card-header with-border">
-                                        <h3 class="card-title">Municipality Type</h3>
+                                        <h3 class="card-title"><i class="fa fa-list"></i> Municipality Type</h3>
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/muniType'), url('/configurations/muniType'));
@@ -116,6 +121,7 @@
                             @endif
 
                     </div>
+            </div>
             </div>
         </section>
         <!-- /.content -->
