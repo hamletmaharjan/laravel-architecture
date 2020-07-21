@@ -213,6 +213,17 @@ class MenusTableSeeder extends Seeder
                 'menu_order' => '2'
             ],
 
+            [
+                'parent_id' => '0',
+                'menu_name' => 'Feedback',
+                'menu_link' => '/feedback',
+                'menu_controller' => 'FeedbackController',
+                'menu_css' => '',
+                'menu_icon' => '<i class="fas fa-comment-dots"></i>',
+                'menu_status' => '1',
+                'menu_order' => '21'
+            ],
+
         ];
         DB::table('menus')->insert($rows);
     }

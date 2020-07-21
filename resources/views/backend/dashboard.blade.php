@@ -24,7 +24,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content"><thead>…</thead>
+        <section class="content">
             <!-- Info boxes -->
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">

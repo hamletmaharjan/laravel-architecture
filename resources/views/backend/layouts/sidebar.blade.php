@@ -4,7 +4,7 @@
     <a href="{{url('/dashboard')}}" class="brand-link">
         <img src="{{asset('/uploads/images/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"> <strong>Minimum Service</strong> <br/><span style="margin-left: 50px;"><strong>Standard</strong></span></span>
+        <span class="brand-text font-weight-light"> <strong>Young Minds</strong></span>
     </a>
 
     <!-- Sidebar -->

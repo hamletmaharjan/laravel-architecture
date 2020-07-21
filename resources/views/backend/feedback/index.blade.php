@@ -4,33 +4,40 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+
         <section class="content-header">
-            <h1>
-                Feedback
-            </h1>
-            <ol class="breadcrumb">
-                <li><a style="color: gray;" href="{{url('/dashboard')}}"><i
-                                class="fa fa-dashboard"></i> {{trans('app.dashboard')}}</a></li>
-                <li><a href="#"> Feedback</a></li>
-            </ol>
+
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Feedback</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Feedback</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
 
         <!-- Main content -->
         <section class="content">
             @include('backend.message.flash')
-            <div class="box box-danger">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><strong>Feedback</strong></h3>
-                    <a href="{{url('/feedback/create')}}" class="pull-right boxTopButton" id="add" data-toggle="tooltip"
+            <div class="card card-default">
+                <div class="card-header with-border">
+                    <h3 class="card-title"><strong>Feedback</strong></h3>
+                    <a href="{{url('/feedback/create')}}" class="pull-right cardTopButton" id="add" data-toggle="tooltip"
                        title="Add New"><i class="fa fa-plus-circle fa-2x"></i></a>
 
-                    <a href="{{url('/feedback')}}" class="pull-right boxTopButton" data-toggle="tooltip"
+                    <a href="{{url('/feedback')}}" class="pull-right cardTopButton" data-toggle="tooltip"
                        title="View All"><i class="fa fa-list fa-2x"></i></a>
 
-                    <a href="{{URL::previous()}}" class="pull-right boxTopButton" data-toggle="tooltip" title="Go Back">
+                    <a href="{{URL::previous()}}" class="pull-right cardTopButton" data-toggle="tooltip" title="Go Back">
                         <i class="fa fa-arrow-circle-left fa-2x"></i></a>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <div class="table-responsive">
 
                         <table id="example1" class="table table-bordered table-hover table-responsive">

@@ -4,25 +4,33 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Feedback
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"> Dashboard</a></li>
-                <li><a href="#"> Feedback</a></li>
-                <li class="active">Edit</li>
-            </ol>
-        </section>
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Feedback</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Feedback</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
 
         <!-- Main content -->
         <section class="content">
             @include('backend.message.flash')
             <div class="row">
                 <div class="col-md-12" id="listing">
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Feedback</h3>
+                    <div class="card card-default">
+                        <div class="card-header with-border">
+                            <h3 class="card-title">Feedback</h3>
 
                             <a href="{{url('feedback/create')}}" class="pull-right boxTopButton" id="add"
                                data-toggle="tooltip" title="Add New"><i class="fa fa-plus-circle fa-2x"></i></a>
@@ -34,7 +42,7 @@
                                title="Go Back">
                                 <i class="fa fa-arrow-circle-left fa-2x"></i></a>
                         </div>
-                        <div class="box-body">
+                        <div class="card-body">
                             {!! Form::model($edits, ['method'=>'put','route'=>['feedback.update',$edits->id],'enctype'=>'multipart/form-data','file'=>true]) !!}
                             <div class="row">
                                 <div class="col-md-12">

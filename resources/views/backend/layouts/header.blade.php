@@ -126,13 +126,19 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="{{url('/profile')}}" class="dropdown-item">
-                    <i class="fas fa-c mr-2"></i> Change Password
+                    <i class="fas fa-cogs mr-2"></i> Change Password
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item"  onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();">
-                    <i class="fas fa-file mr-2"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+
                 <div class="dropdown-divider"></div>
             </div>
         </li>
