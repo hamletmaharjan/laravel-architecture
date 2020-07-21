@@ -119,7 +119,15 @@
                 <i class="far fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">Settings</span>
+
+                <span class="dropdown-item dropdown-header">
+                     @if(Auth::user()->user_image!=null)
+                        <img src="{{asset('/storage/uploads/users/images/profilePic/'.Auth::user()->user_image)}}" class="img-circle elevation-2" alt="User Image" style="width: 100px;height: 90px;margin-left:70px;">
+                    @else
+                        <img src="{{url('/uploads/images/dummyUser.gif')}}" class="dropdown-item dropdown-header text-center" alt="User Image" style="width: 100px;height: 90px;margin-left:70px;">
+                    @endif
+                    Settings
+                </span>
                 <div class="dropdown-divider"></div>
                 <a href="{{url('profile')}}" class="dropdown-item">
                     <i class="fas fa-user mr-2"></i> View Profile
