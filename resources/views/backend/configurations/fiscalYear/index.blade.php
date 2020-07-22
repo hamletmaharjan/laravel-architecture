@@ -150,3 +150,25 @@
     </div>
 
 @endsection
+@section('js')
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        } );
+
+        $( function() {
+            $( "#datepicker1" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        } );
+
+        $( function() {
+            $( "#datepicker2" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        } );
+
+        $( function() {
+            $( "#datepicker3" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        } );
+    </script>
+@endsection

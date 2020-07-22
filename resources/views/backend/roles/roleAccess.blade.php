@@ -221,8 +221,6 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function () {
-            alert('asldkasd');
-
 
             $('.read').on('change', function () {
 
@@ -268,4 +266,16 @@
             });
         });
     </script>
+
+    <script>
+        $(function () {
+            $("input[data-bootstrap-switch]").each(function(){
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            });
+
+
+
+        })
+    </script>
+
 @endsection
