@@ -25,6 +25,7 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
             @include('backend.message.flash')
             <div class="card card-default">
                 <div class="card-header with-border">
@@ -108,6 +109,10 @@
                                         <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Setting</a>
                                     </li>
 
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-content-above-activity-tab" data-toggle="pill" href="#custom-content-above-activity" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Activity</a>
+                                    </li>
+
                                 </ul>
 
                                 <div class="tab-content" id="custom-content-above-tabContent">
@@ -151,6 +156,34 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div class="tab-pane fade show" id="custom-content-above-activity" role="tabpanel" aria-labelledby="custom-content-above-activity-tab" style="padding-top: 20px;">
+
+                                        @if(sizeof($loginDetails) > 0)
+
+                                            @foreach($loginDetails as $detail)
+                                                <div class="timeline">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-red">{{$detail->log_in_date}}</span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-user bg-green"></i>
+                                                        <div class="timeline-item">
+                                                            <h3 class="timeline-header no-border">You logged in from {{$detail->log_in_device}}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+
+                                                </div>
+
+                                                @endforeach
+
+                                        @endif
+
+                                    </div>
 
                                 </div>
 
@@ -164,6 +197,7 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            </div>
         </section>
         <!-- /.content -->
     </div>

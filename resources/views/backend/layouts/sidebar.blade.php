@@ -13,7 +13,8 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @if(Auth::user()->user_image!=null)
-                    <img src="{{asset('/storage/uploads/users/images/profilePic/'.Auth::user()->user_image)}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{asset('/storage/uploads/users/images/profilePic/'.Auth::user()->user_image)}}"
+                         class="img-circle elevation-2" alt="User Image">
                 @else
                     <img src="{{url('/uploads/images/dummyUser.gif')}}" class="img-circle elevation-2" alt="User Image">
                 @endif
@@ -31,12 +32,43 @@
             $firstLevelMenus = App\Models\Roles\Menu::getMenu($id = 0);
             $secondLevelMenus = App\Models\Roles\Menu::getMenu($id = session('menuId'));
             $menus = App\Models\Roles\Menu::getMenus();
+            ?>
 
+            <?php
+            //get controller name
+                session(['second_menu'=>false]);
+
+            function activeTabHome($controllerName)
+            {
+
+                $action = app('request')->route()->getAction();
+                $controller = class_basename($action['controller']);
+
+                list($controller, $action) = explode('@', $controller);
+
+                // get menu link
+                $menuLink=App\Repository\Roles\MenuRepository::getMenuLink($controller);
+
+                if($menuLink){
+                    $link=explode('/',$menuLink->menu_link);
+                    $parentMenuLink=\Request::segment(1);
+
+                    if(sizeof($link) > 2 && $link[1]===$parentMenuLink){
+                        session(['second_menu'=>true]);
+                    }else{
+                        session(['second_menu'=>false]);
+                    }
+
+                }
+
+
+                echo ($controllerName == $controller) ? 'active' : null;
+            }
             ?>
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{url('/dashboard')}}" class="nav-link active">
+                    <a href="{{url('/dashboard')}}" class="nav-link <?php activeTabHome('HomeController');?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -44,30 +76,38 @@
                     </a>
                 </li>
 
+
                 @if(count($firstLevelMenus)>0)
                     @foreach($menus as $menu)
+
                         @if($menu->parent_id==0)
-                            <?php $secondLevelMenus = App\Models\Roles\Menu::getMenu($menu->id);  ?>
+                            <?php
+                            $secondLevelMenus = App\Models\Roles\Menu::getMenu($menu->id);
+                            ?>
 
                             @if(count($secondLevelMenus)>0)
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
-                                            {!! $menu->menu_icon !!}
-                                            <p>
-                                                {{$menu->menu_name}}
-                                                <i class="fas fa-angle-left right"></i>
-                                            </p>
-                                        </a>
 
-                                        <ul class="nav nav-treeview">
+                                <li class="nav-item has-treeview <?php echo (session('second_menu')==true) ? 'menu-open' : ''; ?>">
+
+                                    <a href="#" class="nav-link">
+                                        {!! $menu->menu_icon !!}
+                                        <p>
+                                            {{$menu->menu_name}}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+
+                                    <ul class="nav nav-treeview">
 
                                         @foreach($secondLevelMenus as $secondLevelMenu)
-                                                <li class="nav-item">
-                                                    <a href="{{url("$secondLevelMenu->menu_link")}}" class="nav-link">
-                                                        {!! $secondLevelMenu->menu_icon !!}
-                                                        <p>{{$secondLevelMenu->menu_name}}</p>
-                                                    </a>
-                                                </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{url("$secondLevelMenu->menu_link")}}"
+                                                   class="nav-link <?php activeTabHome($secondLevelMenu->menu_controller);?>">
+                                                    {!! $secondLevelMenu->menu_icon !!}
+                                                    <p>{{$secondLevelMenu->menu_name}}</p>
+                                                </a>
+                                            </li>
 
                                         @endforeach
                                     </ul>
@@ -76,14 +116,15 @@
 
                             @else
 
-                                    <li class="nav-item">
-                                        <a href="{{url($menu->menu_link)}}" class="nav-link">
-                                            {!! $menu->menu_icon !!}
-                                            <p>
-                                                {{$menu->menu_name}}
-                                            </p>
-                                        </a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a href="{{url($menu->menu_link)}}"
+                                       class="nav-link <?php activeTabHome($menu->menu_controller);?>">
+                                        {!! $menu->menu_icon !!}
+                                        <p>
+                                            {{$menu->menu_name}}
+                                        </p>
+                                    </a>
+                                </li>
                             @endif
                         @endif
 
