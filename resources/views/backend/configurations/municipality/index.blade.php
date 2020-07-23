@@ -80,7 +80,7 @@
 
                                                     </td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('municipality.edit',[$municipality->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"

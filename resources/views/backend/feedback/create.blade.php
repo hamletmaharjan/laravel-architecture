@@ -33,13 +33,13 @@
                         <div class="card-header with-border">
                             <h3 class="card-title">Feedback</h3>
                             <a href="{{url('/feedback/create')}}" class="pull-right cardTopButton" id="add" data-toggle="tooltip"
-                               title="Add New"><i class="fa fa-plus-circle fa-2x"></i></a>
+                               title="Add New"><i class="fa fa-plus-circle fa-2x" style="font-size: 20px;"></i></a>
 
                             <a href="{{url('/feedback')}}" class="pull-right cardTopButton" data-toggle="tooltip"
-                               title="View All"><i class="fa fa-list fa-2x"></i></a>
+                               title="View All"><i class="fa fa-list fa-2x" style="font-size: 20px;"></i></a>
 
                             <a href="{{URL::previous()}}" class="pull-right cardTopButton" data-toggle="tooltip" title="Go Back">
-                                <i class="fa fa-arrow-circle-left fa-2x"></i></a>
+                                <i class="fa fa-arrow-circle-left fa-2x" style="font-size: 20px;"></i></a>
                         </div>
                         <div class="card-body">
                             {!! Form::open(['method'=>'post','url'=>'feedback','enctype'=>'multipart/form-data','file'=>true]) !!}
@@ -48,35 +48,35 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 {{ ($errors->has('category'))?'has-error':'' }}">
                                             <label>Type
-                                            </label>
+                                            </label><label class="text-danger">*</label>
                                             {!! Form::select('category',$categories,null,['id' => 'complainerType','style' => 'width:100%','class'=>'form-control select2','placeholder'=>'Please Select Category
                                                     Type']) !!}
-                                            {!! $errors->first('category', '<span class="label label-danger">:message</span>') !!}
+                                            {!! $errors->first('category', '<span class="text-danger">:message</span>') !!}
                                         </div>
 
                                         <div class="form-group col-md-6 {{ ($errors->has('title'))?'has-error':'' }}">
                                             <label for="feature">Title</label>
                                             {{ Form::text('title',null,['placeholder'=>'Write Down','class' => 'form-control']) }}
-                                            {!! $errors->first('title', '<span class="label label-danger">:message</span>') !!}
+                                            {!! $errors->first('title', '<span class="text-danger">:message</span>') !!}
                                         </div>
                                     </div>
 
                                     <div class="form-group {{ ($errors->has('url'))?'has-error':'' }}">
                                         <label for="feature">URL</label><br>
                                         {{ Form::text('url',null,['placeholder'=>'Please Enter Url','class' => 'form-control']) }}
-                                        {!! $errors->first('url', '<span class="label label-danger">:message</span>') !!}
+                                        {!! $errors->first('url', '<span class="text-danger">:message</span>') !!}
                                     </div>
 
                                     <div class="form-group {{ ($errors->has('description'))?'has-error':'' }}">
                                         <label for="feature">Description </label><br>
                                         {{ Form::textarea('description',null,['placeholder'=>'Write Down','class' => 'textarea', 'style'=>'width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px']) }}
-                                        {!! $errors->first('description', '<span class="label label-danger">:message</span>') !!}
+                                        {!! $errors->first('description', '<span class="text-danger">:message</span>') !!}
                                     </div>
 
                                     <div class="form-group">
                                         {{Form::label('attachment','Files / Attachment')}}
                                         {{Form::file('attachment[]', array('class' => 'form-control','multiple' => 'true'))}}
-                                        {!! $errors->first('attachment.*', '<span class="label label-danger">:message</span>') !!}
+                                        {!! $errors->first('attachment.*', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary">

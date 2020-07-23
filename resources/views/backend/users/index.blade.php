@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 @section('title')
-    Dashboard
+    User
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item active">User</li>
                         </ol>
                     </div>
@@ -99,7 +99,7 @@
                                                                     @endif
                                                                 @endif
                                                             </td>
-                                                            <td class="text-right">
+                                                            <td class="text-right col-md-12">
                                                                 @if($allowEdit)
                                                                     <a href="{{route('user.edit',[$user->id])}}"
                                                                        class="text-info btn btn-xs btn-default"

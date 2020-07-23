@@ -29,4 +29,5 @@
 .table-responsive{
 
     display: table !important;
+    width: 100% !important;
 }

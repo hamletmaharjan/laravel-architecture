@@ -77,7 +77,7 @@
                                                     <td>{{$district->nepali_name}}</td>
                                                     <td>{{$district->english_name}}</td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('district.edit',[$district->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"

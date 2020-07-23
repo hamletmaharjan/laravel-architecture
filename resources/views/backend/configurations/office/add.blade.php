@@ -8,14 +8,14 @@
         {!! Form::open(['method'=>'post','url'=>'configurations/office','enctype'=>'multipart/form-data']) !!}
 
         <div class="form-group {{ ($errors->has('district_id'))?'has-error':'' }}">
-            <label>District Name</label>
+            <label>District Name</label><label class="text-danger">*</label>
             {{Form::select('district_id',$district->pluck('nepali_name','id'),Request::get('district_id'),['class'=>'form-control select2','style'=>'width:100%;','id'=>'district_id','placeholder'=>
             'Select District Name'])}}
             {!! $errors->first('district_id', '<span class="text-danger">:message</span>') !!}
         </div>
 
         <div class="form-group {{ ($errors->has('office_type_id'))?'has-error':'' }}">
-            <label>Office Type Name</label>
+            <label>Office Type Name</label><label class="text-danger">*</label>
             {{Form::select('office_type_id',$officeType->pluck('office_type_name','id'),Request::get('office_type_id'),['class'=>'form-control select2','style'=>'width:100%;','id'=>'office_type_id','placeholder'=>
             'Select Office Type Name'])}}
             {!! $errors->first('office_type_id', '<span class="text-danger">:message</span>') !!}
@@ -23,7 +23,7 @@
 
         <div class="form-group {{ ($errors->has('office_code'))?'has-error':'' }}">
             <label>Office Code
-            </label>
+            </label><label class="text-danger">*</label>
         {!! Form::text('office_code',null,['class'=>'form-control','placeholder' => 'Example:001']) !!}
         {!! $errors->first('office_code', '<span class="text-danger">:message</span>') !!}
 
@@ -32,7 +32,7 @@
 
         <div class="form-group {{ ($errors->has('office_name'))?'has-error':'' }}">
             <label>Office Name
-            </label>
+            </label><label class="text-danger">*</label>
         {!! Form::text('office_name',null,['class'=>'form-control','placeholder' => 'Example:Name']) !!}
         {!! $errors->first('office_name', '<span class="text-danger">:message</span>') !!}
 

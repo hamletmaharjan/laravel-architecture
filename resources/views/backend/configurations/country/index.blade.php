@@ -88,11 +88,11 @@
                                                         @endif
                                                     </td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('country.edit',[$country->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
-                                                               data-placement="top" title="Edit">
+                                                               data-placement="top" title="Edit" style="margin:0px 5px;">
                                                                 <i class="fa fa-pencil-square-o"></i>
                                                             </a>
                                                         @endif

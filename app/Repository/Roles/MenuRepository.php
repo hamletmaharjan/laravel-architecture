@@ -67,7 +67,7 @@ class MenuRepository
 
     public static function getMenuLink($controllerName){
 
-        $result = DB::table('menus')->select('menu_link')->where('menu_controller',$controllerName)->first();
+        $result = DB::table('menus')->select('menu_link','parent_id')->where('menu_controller',$controllerName)->first();
         return  $result ;
 
     }

@@ -38,7 +38,7 @@
             //get controller name
                 session(['second_menu'=>false]);
 
-            function activeTabHome($controllerName)
+            function activeTabHome($controllerName,$parentMenu=0)
             {
 
                 $action = app('request')->route()->getAction();
@@ -50,10 +50,7 @@
                 $menuLink=App\Repository\Roles\MenuRepository::getMenuLink($controller);
 
                 if($menuLink){
-                    $link=explode('/',$menuLink->menu_link);
-                    $parentMenuLink=\Request::segment(1);
-
-                    if(sizeof($link) > 2 && $link[1]===$parentMenuLink){
+                    if($parentMenu!=0 && $menuLink->parent_id==$parentMenu){
                         session(['second_menu'=>true]);
                     }else{
                         session(['second_menu'=>false]);
@@ -87,9 +84,29 @@
 
                             @if(count($secondLevelMenus)>0)
 
-                                <li class="nav-item has-treeview <?php echo (session('second_menu')==true) ? 'menu-open' : ''; ?>">
+                                <li class="nav-item has-treeview <?php
 
-                                    <a href="#" class="nav-link">
+                                $action = app('request')->route()->getAction();
+                                $controller = class_basename($action['controller']);
+
+                                list($controller, $action) = explode('@', $controller);
+
+                                // get menu link
+                                $menuLink=App\Repository\Roles\MenuRepository::getMenuLink($controller);
+
+                                if($menuLink){
+                                    $link=explode('/',$menuLink->menu_link);
+                                    $parentMenuLink=\Request::segment(1);
+
+                                    if(sizeof($link) > 2 && $link[1]==$parentMenuLink){
+                                        echo ' menu-open';
+                                    }
+
+                                }
+
+                                ?> ">
+
+                                    <a href="#" class="nav-link ">
                                         {!! $menu->menu_icon !!}
                                         <p>
                                             {{$menu->menu_name}}
@@ -103,7 +120,7 @@
 
                                             <li class="nav-item">
                                                 <a href="{{url("$secondLevelMenu->menu_link")}}"
-                                                   class="nav-link <?php activeTabHome($secondLevelMenu->menu_controller);?>">
+                                                   class="nav-link <?php activeTabHome($secondLevelMenu->menu_controller,$secondLevelMenu->parent_id);?>">
                                                     {!! $secondLevelMenu->menu_icon !!}
                                                     <p>{{$secondLevelMenu->menu_name}}</p>
                                                 </a>

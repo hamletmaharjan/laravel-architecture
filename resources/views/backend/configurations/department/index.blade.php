@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i> {{trans('app.dashboard')}}</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}"> {{trans('app.dashboard')}}</a></li>
                             <li class="breadcrumb-item ">{{trans('app.configuration')}}</li>
                             <li class="breadcrumb-item active">{{trans('app.department')}}</li>
                         </ol>
@@ -70,13 +70,13 @@
                                                     <th scope=row>{{$i}}</th>
                                                     <td>{{$department->department_name}}</td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('department.edit',[$department->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
-                                                               data-placement="top" title="Edit">
+                                                               data-placement="top" title="Edit" style="margin: 0px 5px;">
                                                                 <i class="fa fa-pencil-square-o"></i>
-                                                            </a>&nbsp;
+                                                            </a>
                                                         @endif
 
                                                         @if($allowDelete)
@@ -87,7 +87,7 @@
                                                                     data-toggle="tooltip"
                                                                     data-placement="top" title="Delete"
                                                                     onclick="javascript:return confirm('Are you sure you want to delete?');">
-                                                                <i class="fa fa-trash-o"></i>
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
 
                                                             {!! Form::close() !!}

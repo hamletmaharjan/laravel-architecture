@@ -61,7 +61,7 @@
                                             <tr>
                                                 <th style="width: 10px;">{{trans('app.sn')}}</th>
                                                 <th>Ofiice Type Name</th>
-                                                <th style="width: 10px" ;
+                                                <th style="width: 10px"
                                                     class="text-right">Action</th>
                                             </tr>
                                             </thead>
@@ -71,7 +71,7 @@
                                                 <tr>
                                                     <th scope=row>{{$i}}</th>
                                                     <td>{{$officeType->office_type_name}}</td>
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('officeType.edit',[$officeType->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
@@ -88,7 +88,7 @@
                                                                     data-toggle="tooltip"
                                                                     data-placement="top" title="Delete"
                                                                     onclick="javascript:return confirm('Are you sure you want to delete?');">
-                                                                <i class="fa fa-trash-o"></i>
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
 
                                                             {!! Form::close() !!}

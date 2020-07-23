@@ -95,7 +95,7 @@
                                                             </a>
                                                         @endif
                                                     </td>
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('fiscalYear.edit',[$fiscalYear->id])}}"
                                                                class="text-info btn btn-xs btn-default"

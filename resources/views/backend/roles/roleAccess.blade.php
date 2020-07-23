@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item">Roles</li>
                             <li class="breadcrumb-item active">Role Access</li>
                         </ol>
@@ -33,7 +33,7 @@
                     <div class="card-header with-border">
                         <h3 class="card-title">Assign roles to group</h3>
                         <a href="#" class="pull-right" data-toggle="tooltip" title="Go Back"><i
-                                    class="fa fa-arrow-circle-left fa-2x"></i></a>
+                                    class="fa fa-arrow-circle-left fa-2x" style="font-size: 20px;"></i></a>
 
                     </div>
                     <div class="card-body">
@@ -90,9 +90,14 @@
 
                                                             <div class="checkbox">
 
+                                                                {{--<label class="switch">--}}
+                                                                    {{--<input type="checkbox">--}}
+                                                                    {{--<span class="slider"></span>--}}
+                                                                {{--</label>--}}
+
                                                                 <label>
 
-                                                                    <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                    <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                            data-size="mini"
                                                                            class="read"
                                                                            {{ ($menu->allow_view == 1)?'checked':null }}
@@ -103,7 +108,7 @@
                                                         <td><!-- Rounded switch -->
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                    <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                            data-size="mini"
                                                                            {{ ($menu->allow_add == 1)?'checked':null }}
                                                                            class="write"
@@ -114,7 +119,7 @@
                                                         <td><!-- Rounded switch -->
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                    <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                            data-size="mini"
                                                                            {{ ($menu->allow_edit == 1)?'checked':null }}
                                                                            class="edit"
@@ -125,7 +130,7 @@
                                                         <td><!-- Rounded switch -->
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                    <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                            data-size="mini"
                                                                            {{ ($menu->allow_delete == 1)?'checked':null }}
                                                                            class="delete"
@@ -148,7 +153,7 @@
                                                                     <div class="checkbox">
 
                                                                         <label>
-                                                                            <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                            <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                                    data-size="mini"
                                                                                    {{ ($secondLevelMenu->allow_view == 1)?'checked':null }}
                                                                                    class="read"
@@ -159,7 +164,7 @@
                                                                 <td><!-- Rounded switch -->
                                                                     <div class="checkbox">
                                                                         <label>
-                                                                            <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                            <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                                    data-size="mini"
                                                                                    {{ ($secondLevelMenu->allow_add == 1)?'checked':null }}
                                                                                    class="write"
@@ -170,7 +175,7 @@
                                                                 <td><!-- Rounded switch -->
                                                                     <div class="checkbox">
                                                                         <label>
-                                                                            <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                            <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                                    data-size="mini"
                                                                                    {{ ($secondLevelMenu->allow_edit == 1)?'checked':null }}
                                                                                    class="edit"
@@ -181,7 +186,7 @@
                                                                 <td><!-- Rounded switch -->
                                                                     <div class="checkbox">
                                                                         <label>
-                                                                            <input type="checkbox" data-toggle="toggle" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"
+                                                                            <input type="checkbox" data-toggle="toggle" data-bootstrap-switch data-off-color="danger" data-on-color="success"
                                                                                    data-size="mini"
                                                                                    {{ ($secondLevelMenu->allow_delete == 1)?'checked':null }}
                                                                                    class="delete"
@@ -222,9 +227,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $('.read').on('change', function () {
-
-                alert('read');
+            $('.read').on('click', function () {
 //
                 read = $(this).val();
 
@@ -235,17 +238,15 @@
                 });
             });
 
-            $('.write').on('change', function () {
+            $('.write').on('click', function () {
                 write = $(this).val();
-//                        console.log(write);
-
                 $.ajax({
                     url: "roleChangeAccess/2/" + write,
                     type: "GET"
                 });
             });
 
-            $('.edit').on('change', function () {
+            $('.edit').on('click', function () {
                 edit = $(this).val();
 //                        console.log(edit);
 
@@ -255,7 +256,7 @@
                 });
             });
 
-            $('.delete').on('change', function () {
+            $('.delete').on('click', function () {
                 del = $(this).val();
 //                        console.log(delete);
 
@@ -270,7 +271,8 @@
     <script>
         $(function () {
             $("input[data-bootstrap-switch]").each(function(){
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+//                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+                $(this).bootstrapSwitch('state');
             });
 
 

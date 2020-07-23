@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item">{{trans('app.configuration')}}</li>
                             <li class="breadcrumb-item active">{{trans('app.designation')}}</li>
                         </ol>
@@ -42,6 +42,7 @@
                                 <div class="card card-default">
                                     <div class="card-header with-border">
                                         <h3 class="card-title"><i class="fa fa-list"></i> {{trans('app.designation')}}</h3>
+
                                         <?php
 
                                         $permission = helperPermissionLink(url('/configurations/designation'), url('/configurations/designation'));
@@ -72,7 +73,7 @@
                                                     <td>{{$designation->designation_name}}</td>
                                                     <td>{{$designation->designation_short_name}}</td>
 
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('designation.edit',[$designation->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"

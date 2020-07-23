@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item">Roles</li>
                             <li class="breadcrumb-item active">Menu</li>
                         </ol>
@@ -106,7 +106,7 @@
                                                                 {{$menu->menu_order}}
                                                             </td>
                                                             @if($allowEdit)
-                                                                <td class="text-right">
+                                                                <td class="text-right row" style="margin-right: 0px;">
                                                                     <a href="{{route('menu.edit',[$menu->id])}}"
                                                                        class="text-info btn btn-xs btn-default"
                                                                        data-toggle="tooltip"

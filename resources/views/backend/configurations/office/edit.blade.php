@@ -24,7 +24,7 @@
 
         <div class="form-group {{ ($errors->has('office_code'))?'has-error':'' }}">
             <label>Office Code
-            </label>
+            </label><label class="text-danger">*</label>
         {!! Form::text('office_code',null,['class'=>'form-control','placeholder' => 'Example:001']) !!}
         {!! $errors->first('office_code', '<span class="text-danger">:message</span>') !!}
 
@@ -33,7 +33,7 @@
 
         <div class="form-group {{ ($errors->has('office_name'))?'has-error':'' }}">
             <label>Office Name
-            </label>
+            </label><label class="text-danger">*</label>
         {!! Form::text('office_name',null,['class'=>'form-control','placeholder' => 'Example:Name']) !!}
         {!! $errors->first('office_name', '<span class="text-danger">:message</span>') !!}
 

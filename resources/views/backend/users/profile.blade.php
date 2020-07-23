@@ -30,7 +30,7 @@
             <div class="card card-default">
                 <div class="card-header with-border">
                     <a href="{{url('dashboard')}}" class="pull-right" data-toggle="tooltip" title="Go Back"><i
-                                class="fa fa-arrow-circle-left fa-2x"></i></a>
+                                class="fa fa-arrow-circle-left fa-2x" style="font-size: 20px;"></i></a>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -42,11 +42,11 @@
                                         @if($user->user_image!=null)
                                             <img class="profile-user-img img-responsive img-circle"
                                                  src="{{asset('/storage/uploads/users/images/profilePic/'.$user->user_image)}}"
-                                                 alt="User Image">
+                                                 alt="User Image" style="margin-left: 40px;">
                                         @else
                                             <img class="profile-user-img img-responsive img-circle"
                                                  src="{{url('/uploads/images/dummyUser.gif')}}"
-                                                 alt="User Image">
+                                                 alt="User Image" style="margin-left: 40px;">
                                         @endif
                                     </a>
                                     <!-- Modal -->
@@ -92,7 +92,7 @@
                                         {{$user->email}}
                                     </p>
                                     <hr>
-                                    <strong><i class="fa fa-sign-in margin-r-5"></i> Last Logged in</strong>
+                                    <strong><i class="fa fa-sign margin-r-5"></i> Last Logged in</strong>
                                     <p class="text-muted" style="float:right">
                                         <?php echo \Carbon\Carbon::createFromTimeStamp(strtotime($lastLogin))->diffForHumans() ?>
                                     </p>

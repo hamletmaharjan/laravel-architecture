@@ -69,13 +69,13 @@
                                                 <tr>
                                                     <th scope=row>{{$i}}</th>
                                                     <td>{{$pradesh->pradesh_name}}</td>
-                                                    <td class="text-right">
+                                                    <td class="text-right row" style="margin-right: 0px;">
                                                         @if($allowEdit)
                                                             <a href="{{route('pradesh.edit',[$pradesh->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
-                                                               data-placement="top" title="Edit">
+                                                               data-placement="top" title="Edit" style="margin: 0px 5px;">
                                                                 <i class="fa fa-pencil-square-o"></i>
-                                                            </a>&nbsp;
+                                                            </a>
                                                         @endif
 
                                                         @if($allowDelete)
@@ -86,7 +86,7 @@
                                                                     data-toggle="tooltip"
                                                                     data-placement="top" title="Delete"
                                                                     onclick="javascript:return confirm('Are you sure you want to delete?');">
-                                                                <i class="fa fa-trash-o"></i>
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
 
                                                             {!! Form::close() !!}
