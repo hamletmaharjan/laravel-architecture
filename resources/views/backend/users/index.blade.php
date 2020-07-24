@@ -99,7 +99,7 @@
                                                                     @endif
                                                                 @endif
                                                             </td>
-                                                            <td class="text-right col-md-12">
+                                                            <td class="text-right row" style="margin: 0px;">
                                                                 @if($allowEdit)
                                                                     <a href="{{route('user.edit',[$user->id])}}"
                                                                        class="text-info btn btn-xs btn-default"
@@ -119,7 +119,7 @@
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="top" title="Delete"
                                                                                 onclick="javascript:return confirm('Are you sure you want to delete?');">
-                                                                            <i class="fa fa-trash-o"></i>
+                                                                            <i class="fa fa-trash"></i>
                                                                         </button>
                                                                     @endif
                                                                     {!! Form::close() !!}

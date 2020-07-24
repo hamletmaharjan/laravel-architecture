@@ -8,7 +8,7 @@
         {!! Form::open(['method'=>'post','url'=>'configurations/district','enctype'=>'multipart/form-data']) !!}
 
         <div class="form-group {{ ($errors->has('pradesh_id'))?'has-error':'' }}">
-            <label>Pradesh</label>
+            <label>Pradesh</label><label class="text-danger">*</label>
             {{Form::select('pradesh_id',$pradesh->pluck('pradesh_name','id'),Request::get('pradesh_id'),['class'=>'form-control select2','style'=>'width:100%;','id'=>'designation_id','placeholder'=>
             'Select Pradesh Name'])}}
             {!! $errors->first('pradesh_id', '<span class="text-danger">:message</span>') !!}
