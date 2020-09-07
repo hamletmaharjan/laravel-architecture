@@ -40,4 +40,16 @@ class User extends Authenticatable
     public function user_group(){
         return $this->belongsTo('App\Models\Configurations\UserGroup','user_group_id','id');
     }
+
+    public function posts() {
+        return $this->hasMany('App\Models\Front\Post');
+    }
+
+    public function events() {
+        return $this->hasMany('App\Models\Front\Event');
+    }
+
+    public function news() {
+        return $this->hasMany('App\Models\Front\News');
+    }
 }
