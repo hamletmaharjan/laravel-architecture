@@ -42,14 +42,14 @@ class User extends Authenticatable
     }
 
     public function posts() {
-        return $this->hasMany('App\Models\Front\Post');
+        return $this->hasMany('App\Models\Modules\Post');
     }
 
     public function events() {
-        return $this->hasMany('App\Models\Front\Event');
+        return $this->hasMany('App\Models\Modules\Event');
     }
 
     public function news() {
-        return $this->hasMany('App\Models\Front\News');
+        return $this->hasMany('App\Models\Modules\News');
     }
 }

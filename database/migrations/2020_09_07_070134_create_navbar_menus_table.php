@@ -16,13 +16,13 @@ class CreateNavbarMenusTable extends Migration
         Schema::create('navbar_menus', function (Blueprint $table) {
             $table->increments('id');
             $table->string('menu_name');
-            $table->integer('menu_type_id')->unsigned();
+            $table->integer('navbar_menu_type_id')->unsigned();
             $table->string('page_slug');
             $table->integer('parent_id')->default(0);
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
 
-            $table->foreign('menu_type_id')->references('menu_types')->on('id')->onUpdate('cascade');
+            $table->foreign('navbar_menu_type_id')->references('id')->on('navbar_menu_types')->onUpdate('cascade');
         });
     }
 

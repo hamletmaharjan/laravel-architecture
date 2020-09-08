@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Front;
+namespace App\Models\Modules;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Event extends Model
 {
     //
 

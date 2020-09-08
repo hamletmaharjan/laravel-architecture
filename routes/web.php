@@ -51,4 +51,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('feedback','FeedbackController');
 
+
+    //additional
+    Route::prefix('admin')->group(function () {
+        Route::get('/posts', 'Admin\PostController@index')->name('admin.posts.index');
+        Route::post('/posts', 'Admin\PostController@create')->name('admin.posts.create');
+    });
+
 });
