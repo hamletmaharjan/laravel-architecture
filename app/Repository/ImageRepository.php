@@ -18,5 +18,11 @@ class ImageRepository
         $image->move(public_path('/uploads/'.$imageType),$imageName);
         return $imageName;
     }
+    // public function moveImageWithName($data, $imageType){
+		// $imageName = time().'.'.$data->getClientOriginalExtension();
+    //     // $data->move(public_path('/uploads/articles'),$imageName);
+    //     $path = $data->storeAs('public/uploads/articles/'.$imageType,$imageName);
+		// return $imageName;
+    // }
     
 }

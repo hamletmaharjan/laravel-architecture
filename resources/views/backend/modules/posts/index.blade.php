@@ -100,14 +100,26 @@
                                                             </td>
                                                             <td class="text-right row" style="margin: 0px;">
                                                                 @if($allowEdit)
-                                                                    <a href="#"
+                                                                    <a href="{{route('admin.posts.edit',[$post->id])}}"
                                                                        class="text-info btn btn-xs btn-default"
                                                                        data-toggle="tooltip"
                                                                        data-placement="top" title="Edit">
                                                                         <i class="fa fa-pencil-square-o"></i>
                                                                     </a>&nbsp;
                                                                 @endif
+                                                                @if($allowDelete)
+                                                                    {!! Form::open(['method' => 'DELETE', 'route'=>['admin.posts.destroy',
+                                                                        $post->id],'class'=> 'inline']) !!}
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger btn-xs deleteButton actionIcon"
+                                                                            data-toggle="tooltip"
+                                                                            data-placement="top" title="Delete"
+                                                                            onclick="javascript:return confirm('Are you sure you want to delete?');">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
 
+                                                                    {!! Form::close() !!}
+                                                                @endif
                                                                 
                                                             </td>
                                                         </tr>
@@ -136,7 +148,7 @@
 
                                 <div class="col-md-3">
                                     @if(\Request::segment(4)=='edit')
-                                        @include('backend.configurations.department.edit')
+                                        @include('backend.modules.posts.edit')
                                     @else
                                         @include('backend.modules.posts.create')
                                     @endif

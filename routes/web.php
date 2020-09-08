@@ -55,7 +55,10 @@ Route::group(['middleware' => ['auth']], function () {
     //additional
     Route::prefix('admin')->group(function () {
         Route::get('/posts', 'Admin\PostController@index')->name('admin.posts.index');
-        Route::post('/posts', 'Admin\PostController@create')->name('admin.posts.create');
+        Route::post('/posts', 'Admin\PostController@store')->name('admin.posts.store');
+        Route::get('/posts/{id}/edit', 'Admin\PostController@edit')->name('admin.posts.edit');
+        Route::put('/posts/{id}', 'Admin\PostController@update')->name('admin.posts.update');
+        Route::delete('/posts/{id}', 'Admin\PostController@destroy')->name('admin.posts.destroy');
     });
 
 });
