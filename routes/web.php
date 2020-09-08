@@ -69,6 +69,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 
         Route::get('/news/status/{id}', 'Admin\NewsController@status')->name('admin.news.status');
+
+        Route::get('/galleries', 'Admin\GalleryController@index')->name('admin.galleries.index');
+        Route::post('/galleries', 'Admin\GalleryController@store')->name('admin.galleries.store');
+        Route::get('/galleries/{id}/edit', 'Admin\GalleryController@edit')->name('admin.galleries.edit');
+        Route::put('/galleries/{id}', 'Admin\GalleryController@update')->name('admin.galleries.update');
+        Route::delete('/galleries/{id}', 'Admin\GalleryController@destroy')->name('admin.galleries.destroy');
         
     });
 

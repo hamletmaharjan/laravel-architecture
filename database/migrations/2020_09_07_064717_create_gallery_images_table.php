@@ -22,7 +22,7 @@ class CreateGalleryImagesTable extends Migration
             $table->integer('gallery_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('gallery_id')->references('id')->on('galleries')->onUpdate('cascade');
+            $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }
 

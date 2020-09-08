@@ -22,7 +22,7 @@ class CreateNavbarMenusTable extends Migration
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
 
-            $table->foreign('navbar_menu_type_id')->references('id')->on('navbar_menu_types')->onUpdate('cascade');
+            $table->foreign('navbar_menu_type_id')->references('id')->on('navbar_menu_types')->onDelete('cascade');
         });
     }
 
