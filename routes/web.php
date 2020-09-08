@@ -59,6 +59,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/posts/{id}/edit', 'Admin\PostController@edit')->name('admin.posts.edit');
         Route::put('/posts/{id}', 'Admin\PostController@update')->name('admin.posts.update');
         Route::delete('/posts/{id}', 'Admin\PostController@destroy')->name('admin.posts.destroy');
+
+        //News
+        Route::get('/news', 'Admin\NewsController@index')->name('admin.news.index');
+        Route::post('/news', 'Admin\NewsController@store')->name('admin.news.store');
+        Route::get('/news/{id}/edit', 'Admin\NewsController@edit')->name('admin.news.edit');
+        Route::put('/news/{id}', 'Admin\NewsController@update')->name('admin.news.update');
+        Route::delete('/news/{id}', 'Admin\NewsController@destroy')->name('admin.news.destroy');
+
+
+        Route::get('/news/status/{id}', 'Admin\NewsController@status')->name('admin.news.status');
+        
     });
 
 });
