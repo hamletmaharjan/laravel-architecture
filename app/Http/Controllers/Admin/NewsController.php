@@ -117,6 +117,10 @@ class NewsController extends Controller
         $id=(int)$id;
         try{
             $news = News::findOrFail($id);
+            $filePath = public_path()."/uploads/news/".$news->file;
+            if(File::exists($filePath)) {
+                File::delete($filePath);
+            }
             $news->delete();
             session()->flash('success','News successfully deleted!');
             return back();

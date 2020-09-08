@@ -70,12 +70,21 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/news/status/{id}', 'Admin\NewsController@status')->name('admin.news.status');
 
+        //galleries
         Route::get('/galleries', 'Admin\GalleryController@index')->name('admin.galleries.index');
         Route::post('/galleries', 'Admin\GalleryController@store')->name('admin.galleries.store');
         Route::get('/galleries/{id}/edit', 'Admin\GalleryController@edit')->name('admin.galleries.edit');
         Route::put('/galleries/{id}', 'Admin\GalleryController@update')->name('admin.galleries.update');
         Route::delete('/galleries/{id}', 'Admin\GalleryController@destroy')->name('admin.galleries.destroy');
         
+        //gallery images
+        Route::get('/galleryImages', 'Admin\GalleryImageController@index')->name('admin.galleryImages.index');
+        Route::post('/galleryImages', 'Admin\GalleryImageController@store')->name('admin.galleryImages.store');
+        Route::get('/galleryImages/{id}/edit', 'Admin\GalleryImageController@edit')->name('admin.galleryImages.edit');
+        Route::put('/galleryImages/{id}', 'Admin\GalleryImageController@update')->name('admin.galleryImages.update');
+        Route::delete('/galleryImages/{id}', 'Admin\GalleryImageController@destroy')->name('admin.galleryImages.destroy');
+
+        Route::get('/galleryImages/status/{id}', 'Admin\GalleryImageController@status')->name('admin.galleryImages.status');
     });
 
 });
