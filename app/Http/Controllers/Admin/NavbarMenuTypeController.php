@@ -4,25 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Modules\Gallery;
+use App\Models\Modules\NavbarMenuType;
 
-class GalleryController extends Controller
+class NavbarMenuTypeController extends Controller
 {
-    
-
     public function index(){
-        $galleries = Gallery::get();
-        return view('backend.modules.galleries.index', compact('galleries'));
+        $navbarMenuTypes = NavbarMenuType::get();
+        return view('backend.modules.navbarMenuTypes.index', compact('navbarMenuTypes'));
     }
 
     public function store(Request $request) {
 
       // dd($request);
         try{
-            $gallery = new Gallery();
-            $gallery->gallery_name = $request->gallery_name;
+            $navbarMenuType = new NavbarMenuType();
+            $navbarMenuType->type_name = $request->type_name;
             
-            if($gallery->save()){
+            if($navbarMenuType->save()){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -40,11 +38,11 @@ class GalleryController extends Controller
         // dd($id);
         try{
             $id = (int)$id;
-            $edits = Gallery::findOrFail($id);
+            $edits = NavbarMenuType::findOrFail($id);
             if ($edits->count() > 0)
             {
-                $galleries = Gallery::get();
-                return view('backend.modules.galleries.index', compact('edits','galleries'));
+                $navbarMenuTypes = NavbarMenuType::get();
+                return view('backend.modules.navbarMenuTypes.index', compact('edits','navbarMenuTypes'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');
@@ -62,14 +60,14 @@ class GalleryController extends Controller
         // dd($request);
         $id = (int)$id;
         try{
-            $gallery = Gallery::findOrFail($id);
-            $gallery->gallery_name = $request->gallery_name;
+            $navbarMenuType = NavbarMenuType::findOrFail($id);
+            $navbarMenuType->type_name = $request->type_name;
             
-            if($gallery->save()){
+            if($navbarMenuType->save()){
                
-                session()->flash('success','Gallery updated successfully!');
+                session()->flash('success','NavbarMenuType updated successfully!');
 
-                return redirect(route('admin.galleries.index'));
+                return redirect(route('admin.navbarMenuTypes.index'));
             }else{
 
                 session()->flash('error','No record with given id!');
@@ -86,9 +84,9 @@ class GalleryController extends Controller
     //    dd($id);
         $id=(int)$id;
         try{
-            $gallery = Gallery::findOrFail($id);
-            $gallery->delete();
-            session()->flash('success','Gallery successfully deleted!');
+            $navbarMenuType = NavbarMenuType::findOrFail($id);
+            $navbarMenuType->delete();
+            session()->flash('success','NavbarMenuType successfully deleted!');
             return back();
 
         }catch (\Exception $e){
@@ -98,6 +96,4 @@ class GalleryController extends Controller
 
         }
     }
-
-
 }

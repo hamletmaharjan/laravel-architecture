@@ -85,6 +85,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/galleryImages/{id}', 'Admin\GalleryImageController@destroy')->name('admin.galleryImages.destroy');
 
         Route::get('/galleryImages/status/{id}', 'Admin\GalleryImageController@status')->name('admin.galleryImages.status');
+
+        //events
+        Route::get('/events', 'Admin\EventController@index')->name('admin.events.index');
+        Route::post('/events', 'Admin\EventController@store')->name('admin.events.store');
+        Route::get('/events/{id}/edit', 'Admin\EventController@edit')->name('admin.events.edit');
+        Route::put('/events/{id}', 'Admin\EventController@update')->name('admin.events.update');
+        Route::delete('/events/{id}', 'Admin\EventController@destroy')->name('admin.events.destroy');
+
+        Route::get('/events/status/{id}', 'Admin\EventController@status')->name('admin.events.status');
+
+        //navbar menu types
+        Route::get('/navbarMenuTypes', 'Admin\NavbarMenuTypeController@index')->name('admin.navbarMenuTypes.index');
+        Route::post('/navbarMenuTypes', 'Admin\NavbarMenuTypeController@store')->name('admin.navbarMenuTypes.store');
+        Route::get('/navbarMenuTypes/{id}/edit', 'Admin\NavbarMenuTypeController@edit')->name('admin.navbarMenuTypes.edit');
+        Route::put('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@update')->name('admin.navbarMenuTypes.update');
+        Route::delete('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@destroy')->name('admin.navbarMenuTypes.destroy');
     });
 
 });
