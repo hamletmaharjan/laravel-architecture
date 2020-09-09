@@ -119,6 +119,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/pages/{id}', 'Admin\PageController@destroy')->name('admin.pages.destroy');
 
         Route::get('/pages/status/{id}', 'Admin\PageController@status')->name('admin.pages.status');
+
+        //notices
+        Route::get('/notices', 'Admin\NoticeController@index')->name('admin.notices.index');
+        Route::post('/notices', 'Admin\NoticeController@store')->name('admin.notices.store');
+        Route::get('/notices/{id}/edit', 'Admin\NoticeController@edit')->name('admin.notices.edit');
+        Route::put('/notices/{id}', 'Admin\NoticeController@update')->name('admin.notices.update');
+        Route::delete('/notices/{id}', 'Admin\NoticeController@destroy')->name('admin.notices.destroy');
+
+        Route::get('/notices/status/{id}', 'Admin\NoticeController@status')->name('admin.notices.status');
     });
 
 });
