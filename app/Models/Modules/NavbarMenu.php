@@ -11,4 +11,8 @@ class NavbarMenu extends Model
     public function navbarMenuType() {
         return $this->belongsTo('App\Models\Modules\NavbarMenuType');
     }
+
+    public function childs() {
+        return $this->hasMany('App\Models\Modules\NavbarMenu');
+    }
 }

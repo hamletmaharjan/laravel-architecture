@@ -101,6 +101,24 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/navbarMenuTypes/{id}/edit', 'Admin\NavbarMenuTypeController@edit')->name('admin.navbarMenuTypes.edit');
         Route::put('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@update')->name('admin.navbarMenuTypes.update');
         Route::delete('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@destroy')->name('admin.navbarMenuTypes.destroy');
+
+        //navbar menus
+        Route::get('/navbarMenus', 'Admin\NavbarMenuController@index')->name('admin.navbarMenus.index');
+        Route::post('/navbarMenus', 'Admin\NavbarMenuController@store')->name('admin.navbarMenus.store');
+        Route::get('/navbarMenus/{id}/edit', 'Admin\NavbarMenuController@edit')->name('admin.navbarMenus.edit');
+        Route::put('/navbarMenus/{id}', 'Admin\NavbarMenuController@update')->name('admin.navbarMenus.update');
+        Route::delete('/navbarMenus/{id}', 'Admin\NavbarMenuController@destroy')->name('admin.navbarMenus.destroy');
+
+        Route::get('/navbarMenus/status/{id}', 'Admin\NavbarMenuController@status')->name('admin.navbarMenus.status');
+
+        //pages
+        Route::get('/pages', 'Admin\PageController@index')->name('admin.pages.index');
+        Route::post('/pages', 'Admin\PageController@store')->name('admin.pages.store');
+        Route::get('/pages/{id}/edit', 'Admin\PageController@edit')->name('admin.pages.edit');
+        Route::put('/pages/{id}', 'Admin\PageController@update')->name('admin.pages.update');
+        Route::delete('/pages/{id}', 'Admin\PageController@destroy')->name('admin.pages.destroy');
+
+        Route::get('/pages/status/{id}', 'Admin\PageController@status')->name('admin.pages.status');
     });
 
 });
