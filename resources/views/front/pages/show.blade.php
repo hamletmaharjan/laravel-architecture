@@ -2,98 +2,23 @@
 @section('title', $page->page_title)
 
 @section('content')
-    <div class="site-section" id="features-section" style="padding-top:130px;">
-        <div class="container">
-            <div class="row mb-5 justify-content-center text-center"  data-aos="fade-up">
-            <div class="col-7 text-center  mb-5">
-                <h2 class="section-title">Imagine Features</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente nam, id vero.</p>
-            </div>
-            </div>
-            <div class="row align-items-stretch">
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
-                
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-autorenew"></span></span>
-                </div>
-                <div>
-                    <h3>Marketing Consulting</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-store_mall_directory"></span></span>
-                </div>
-                <div>
-                    <h3>Market Analysis</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up"  data-aos-delay="200">
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-shopping_basket"></span></span>
-                </div>
-                <div>
-                    <h3>Easy Purchase</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-settings_backup_restore"></span></span>
-                </div>
-                <div>
-                    <h3>Free Updates</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-sentiment_satisfied"></span></span>
-                </div>
-                <div>
-                    <h3>100% Satistified</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-
-                
-            </div>
-            
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="unit-4 d-block">
-                <div class="unit-4-icon mb-3">
-                    <span class="icon-wrap"><span class="text-primary icon-power"></span></span>
-                </div>
-                <div>
-                    <h3>Easy Plugin</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
-                    <p><a href="#">Learn More</a></p>
-                </div>
-                </div>
-            </div>
-
-            </div>
+    <div class="site-section bg-light" id="about-section" style="padding-top:130px;">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2 class="section-title mb-3">{{$page->page_title}}</h2>
+          </div>
         </div>
+        <div class="row mb-5">
+          
+            <!-- <h2 class="text-black mb-4 h3 font-weight-bold">Our Mission</h2> -->
+            <p class="mb-4">{{$page->content}}</p>
+            <p class="text-black">Author: <strong>{{$page->user->name}}</strong></p> <br>
+            <a href="{{asset('uploads/pages/'.$page->file)}}">Download</a>
+          
+        </div>
+
+        
+      </div>
     </div>
 @endsection

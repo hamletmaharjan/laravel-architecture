@@ -158,7 +158,13 @@ class PageController extends Controller
     }
 
     public function getBySlug($slug) {
-        $page = Page::where('slug', '=', $slug)->first();
-        return view('front.pages.show', compact('page'));
+        try {
+            $page = Page::where('slug', '=', $slug)->where('status','active')->first();
+            return view('front.pages.show', compact('page'));
+        }catch (\Exception $e) {
+            $exception = $e->getMessage();
+            session()->flash('error', 'EXCEPTION :' . $exception);
+        }
+        
     }
 }

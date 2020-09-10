@@ -135,7 +135,7 @@ class EventController extends Controller
     }
 
     public function getAll() {
-        $events = Event::get();
+        $events = Event::where('status','active')->get();
         return view('front.events.index', compact('events'));
     }
 }

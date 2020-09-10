@@ -101,7 +101,7 @@ class GalleryController extends Controller
 
     public function getImages($id) {
         $gallery = Gallery::findOrFail($id);
-        $galleryImages = $gallery->galleryImages;
+        $galleryImages = $gallery->galleryImages()->where('status', 'active')->orderBy('display_order','asc')->get();
         return view('front.galleries.show', compact('gallery', 'galleryImages'));
     }
 }

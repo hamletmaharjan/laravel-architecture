@@ -98,7 +98,8 @@ class PostController extends Controller
     }
 
     public function getAll() {
-        $posts = Post::get();
+        $posts = Post::where('status', 'active')->get();
+        
         return view('front.posts.index', compact('posts'));
     }
 }

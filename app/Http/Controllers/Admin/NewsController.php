@@ -158,7 +158,7 @@ class NewsController extends Controller
     }
 
     public function getAll() {
-        $news = News::get();
+        $news = News::where('status','active')->get();
         return view('front.news.index', compact('news'));
     }
 }

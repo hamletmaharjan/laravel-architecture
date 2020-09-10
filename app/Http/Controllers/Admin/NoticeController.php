@@ -157,4 +157,12 @@ class NoticeController extends Controller
             session()->flash('error', 'EXCEPTION :' . $exception);
         }
     }
+
+    public function getAll() {
+        $notices = Notice::where('status', '=', 'active')
+                        ->orderBy('display_order', 'asc')
+                        ->get();
+
+        return view('front.notices.index', compact('notices'));
+    }
 }
