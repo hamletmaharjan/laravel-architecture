@@ -59,29 +59,43 @@
 
           <div class="col-12 col-md-9 col-xl-8 main-menu">
             <nav class="site-navigation position-relative text-right" role="navigation">
+                <?php
+                    $menus = App\Models\Modules\NavbarMenu::where('parent_id', '=', 0)->get();
+                    $allMenus = App\Models\Modules\NavbarMenu::pluck('menu_name','id')->all();
+                 ?>
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
+                @foreach($menus as $menu)
+                @if(count($menu->childs))
+                    <li class="has-children">
+                        <a href="#about-section" class="nav-link">{{$menu->menu_name}}</a>
+                        <ul class="dropdown arrow-top">
+                            @foreach($menu->childs as $child)
+                            @if(count($child->childs))
+                                @include('front.layouts.hasChildMenu', ['menu'=> $child])
+                                <!-- <li class="has-children">
+                                <a href="#">{{$child->menu_name}}</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">Menu One</a></li>
+                                    <li><a href="#">Menu Two</a></li>
+                                    <li><a href="#">Menu Three</a></li>
+                                </ul>
+                                </li> -->
+                            @else
+                                <li><a href="#" class="nav-link">{{$child->menu_name}}</a></li>
+                            @endif
+                            @endforeach
+                            
+                        </ul>
+                    </li>
+                @else
+                    <li><a href="#" class="nav-link">{{$menu->menu_name}}</a></li>
+                @endif
+                @endforeach
                 <li><a href="#posts-section" class="nav-link">Posts</a></li>
                 <li><a href="#events-section" class="nav-link">Events</a></li>
                 <li><a href="#news-section" class="nav-link">News</a></li>
-                <li class="has-children">
-                  <a href="#about-section" class="nav-link">About Us</a>
-                  <ul class="dropdown arrow-top">
-                    <li><a href="#" target="_blank" class="nav-link"><span class="text-primary">More Free Templates</span></a></li>
-                    <li><a href="#our-team-section" class="nav-link">Our Team</a></li>
-                    <li class="has-children">
-                      <a href="#">More Links</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-                <li><a href="#notice-section" class="nav-link">Notices</a></li>
               </ul>
             </nav>
           </div>
