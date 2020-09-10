@@ -99,5 +99,9 @@ class GalleryController extends Controller
         }
     }
 
-
+    public function getImages($id) {
+        $gallery = Gallery::findOrFail($id);
+        $galleryImages = $gallery->galleryImages;
+        return view('front.galleries.show', compact('gallery', 'galleryImages'));
+    }
 }

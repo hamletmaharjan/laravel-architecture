@@ -156,4 +156,9 @@ class PageController extends Controller
             session()->flash('error', 'EXCEPTION :' . $exception);
         }
     }
+
+    public function getBySlug($slug) {
+        $page = Page::where('slug', '=', $slug)->first();
+        return view('front.pages.show', compact('page'));
+    }
 }

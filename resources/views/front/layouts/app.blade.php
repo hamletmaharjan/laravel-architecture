@@ -62,6 +62,7 @@
                 <?php
                     $menus = App\Models\Modules\NavbarMenu::where('parent_id', '=', 0)->get();
                     $allMenus = App\Models\Modules\NavbarMenu::pluck('menu_name','id')->all();
+                    $galleries = App\Models\Modules\Gallery::get();
                  ?>
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
@@ -83,16 +84,27 @@
                                 </ul>
                                 </li> -->
                             @else
-                                <li><a href="#" class="nav-link">{{$child->menu_name}}</a></li>
+                                <li><a href="{{url('pages',$child->page_slug)}}" class="nav-link">{{$child->menu_name}}</a></li>
                             @endif
                             @endforeach
                             
                         </ul>
                     </li>
                 @else
-                    <li><a href="#" class="nav-link">{{$menu->menu_name}}</a></li>
+                    <li><a href="{{url('pages',$child->page_slug)}}" class="nav-link">{{$menu->menu_name}}</a></li>
                 @endif
                 @endforeach
+
+                <li class="has-children">
+                  <a href="#galleries-section" class="nav-link">Gallery</a>
+                  <ul class="dropdown arrow-top">
+                    <!-- <li><a href="#" target="_blank" class="nav-link"><span class="text-primary">More Free Templates</span></a></li> -->
+
+                    @foreach($galleries as $gallery)
+                      <li><a href="{{route('galleries.show',['id'=>$gallery->id])}}" class="nav-link">{{$gallery->gallery_name}}</a></li>
+                    @endforeach
+                  </ul>
+                </li>
                 <li><a href="#posts-section" class="nav-link">Posts</a></li>
                 <li><a href="#events-section" class="nav-link">Events</a></li>
                 <li><a href="#news-section" class="nav-link">News</a></li>
