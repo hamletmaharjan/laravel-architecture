@@ -133,4 +133,9 @@ class EventController extends Controller
             session()->flash('error', 'EXCEPTION :' . $exception);
         }
     }
+
+    public function getAll() {
+        $events = Event::get();
+        return view('front.events.index', compact('events'));
+    }
 }

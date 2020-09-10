@@ -156,4 +156,9 @@ class NewsController extends Controller
             session()->flash('error', 'EXCEPTION :' . $exception);
         }
     }
+
+    public function getAll() {
+        $news = News::get();
+        return view('front.news.index', compact('news'));
+    }
 }

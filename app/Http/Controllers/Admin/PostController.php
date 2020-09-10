@@ -96,4 +96,9 @@ class PostController extends Controller
         return back();
     	
     }
+
+    public function getAll() {
+        $posts = Post::get();
+        return view('front.posts.index', compact('posts'));
+    }
 }
