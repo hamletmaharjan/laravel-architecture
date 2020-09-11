@@ -91,7 +91,7 @@
                         </ul>
                     </li>
                 @else
-                    <li><a href="{{url('pages',$child->page_slug)}}" class="nav-link">{{$menu->menu_name}}</a></li>
+                    <li><a href="{{url('pages',$menu->page_slug)}}" class="nav-link">{{$menu->menu_name}}</a></li>
                 @endif
                 @endforeach
 
