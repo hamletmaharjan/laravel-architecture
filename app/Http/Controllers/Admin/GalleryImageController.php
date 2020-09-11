@@ -25,7 +25,12 @@ class GalleryImageController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'image' => ['required'],
+            'display_order' => ['required']
+            
+        ]);
     //    dd($request);
         try{
             $galleryImage = new GalleryImage();
@@ -79,7 +84,12 @@ class GalleryImageController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'image' => ['required'],
+            'display_order' => ['required']
+            
+        ]);
         // dd($request);
         $id = (int)$id;
         try{

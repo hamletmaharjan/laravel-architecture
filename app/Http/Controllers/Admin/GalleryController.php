@@ -16,7 +16,10 @@ class GalleryController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'gallery_name' => ['required', 'max:30']
+            
+        ]);
       // dd($request);
         try{
             $gallery = new Gallery();
@@ -58,7 +61,10 @@ class GalleryController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'gallery_name' => ['required', 'max:30']
+            
+        ]);
         // dd($request);
         $id = (int)$id;
         try{

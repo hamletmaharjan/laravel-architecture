@@ -26,6 +26,11 @@ class PageController extends Controller
     public function store(Request $request) {
 
     //    dd($request);
+        $request->validate([
+            'page_title' => ['required', 'string', 'max:30'],
+            'content' => ['required'],
+            'slug' => ['required','unique:pages']
+        ]);
         try{
             $page = new Page();
             $page->page_title = $request->page_title;
@@ -77,6 +82,12 @@ class PageController extends Controller
     public function update(Request $request, $id) {
 
         // dd($request);
+        $request->validate([
+            'page_title' => ['required', 'string', 'max:30'],
+            'content' => ['required'],
+            'slug' => ['required','unique:pages']
+        ]);
+        
         $id = (int)$id;
         try{
             $page = Page::findOrFail($id);

@@ -25,7 +25,9 @@ class NewsController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'title' => ['required', 'max:30']
+        ]);
        // dd($request);
         try{
             $news = new News();
@@ -75,7 +77,9 @@ class NewsController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'title' => ['required', 'max:30']
+        ]);
         //dd($request);
         $id = (int)$id;
         try{

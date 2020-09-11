@@ -14,7 +14,7 @@
                 <label class="text-danger"> *</label>
             </label>
             {!! Form::text('title',null,['class'=>'form-control','placeholder' => 'Example: My first post']) !!}
-            <!-- {!! $errors->first('country_name', '<span class="text-danger">:message</span>') !!} -->
+            {!! $errors->first('title', '<span class="text-danger">:message</span>') !!}
 
         <!-- /.input group -->
         </div>
@@ -22,14 +22,14 @@
             <label>Content
             </label>
         {!! Form::text('content',null,['class'=>'form-control','placeholder' => 'Example: sijfesljfe']) !!}
-        <!-- {!! $errors->first('short_name', '<span class="text-danger">:message</span>') !!} -->
+        {!! $errors->first('content', '<span class="text-danger">:message</span>') !!}
 
         <!-- /.input group -->
         </div>
         <div class="form-group {{ ($errors->has('banner_image'))?'has-error':'' }}">
             <label>Banner Image</label>
             {!! Form::file('banner_image',null,['class'=>'form-control']) !!}
-            <!-- {!! $errors->first('country_name', '<span class="text-danger">:message</span>') !!} -->
+            {!! $errors->first('banner_image', '<span class="text-danger">:message</span>') !!}
         </div>
 
         <div class="form-group {{ ($errors->has('status'))?'has-error':'' }}">

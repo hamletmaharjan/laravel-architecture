@@ -14,7 +14,9 @@ class NavbarMenuTypeController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'type_name' => ['required', 'max:30']
+        ]);
       // dd($request);
         try{
             $navbarMenuType = new NavbarMenuType();
@@ -56,7 +58,9 @@ class NavbarMenuTypeController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'type_name' => ['required', 'max:30']
+        ]);
         // dd($request);
         $id = (int)$id;
         try{

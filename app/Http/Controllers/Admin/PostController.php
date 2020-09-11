@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\ImageRepository;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\Modules\PostRequest;
 use App\Models\Modules\Post;
 
 class PostController extends Controller
@@ -28,7 +29,7 @@ class PostController extends Controller
     	//
     }
 
-    public function store(Request $request){
+    public function store(PostRequest $request){
          //dd($request);
     	// $request->validate([
         //     'title' => ['required', 'string', 'max:30'],
