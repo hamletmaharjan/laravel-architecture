@@ -15,7 +15,14 @@ class EventController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+            'start_time' => ['required'],
+            'end_time' => ['required'],
+            'venue' => ['required'],
+        ]);
         // dd($request);
         try{
             $event = new Event();
@@ -64,7 +71,14 @@ class EventController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+            'start_time' => ['required'],
+            'end_time' => ['required'],
+            'venue' => ['required'],
+        ]);
         // dd($request);
         $id = (int)$id;
         try{
@@ -135,7 +149,7 @@ class EventController extends Controller
     }
 
     public function getAll() {
-        $events = Event::get();
+        $events = Event::where('status','active')->get();
         return view('front.events.index', compact('events'));
     }
 }

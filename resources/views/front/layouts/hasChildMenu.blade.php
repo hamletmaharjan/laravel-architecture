@@ -5,7 +5,7 @@
     @if(count($child->childs))
         @include('front.layouts.hasChildMenu', ['menu'=> $child])
     @else
-        <li><a href="#" class="nav-link">{{$child->menu_name}}</a></li>
+        <li><a href="{{url('pages',$child->page_slug)}}" class="nav-link">{{$child->menu_name}}</a></li>
     @endif
     @endforeach
     

@@ -24,7 +24,12 @@ class NoticeController extends Controller
     }
 
     public function store(Request $request) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'content' => ['required'],
+            'display_order' => ['required','unique:notices'],
+            'notice_date' => ['required']
+        ]);
       
         try{
             $notice = new Notice();
@@ -76,7 +81,12 @@ class NoticeController extends Controller
     }
 
     public function update(Request $request, $id) {
-
+        $request->validate([
+            'title' => ['required', 'max:30'],
+            'content' => ['required'],
+            'display_order' => ['required','unique:notices'],
+            'notice_date' => ['required']
+        ]);
         $id = (int)$id;
         try{
             $notice = Notice::findOrFail($id);
@@ -156,5 +166,13 @@ class NoticeController extends Controller
             $exception = $e->getMessage();
             session()->flash('error', 'EXCEPTION :' . $exception);
         }
+    }
+
+    public function getAll() {
+        $notices = Notice::where('status', '=', 'active')
+                        ->orderBy('display_order', 'asc')
+                        ->get();
+
+        return view('front.notices.index', compact('notices'));
     }
 }

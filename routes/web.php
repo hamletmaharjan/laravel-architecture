@@ -13,6 +13,10 @@ Route::get('/about', function() {
 Route::get('/posts', 'Admin\PostController@getAll')->name('posts.index');
 Route::get('/news', 'Admin\NewsController@getAll')->name('news.index');
 Route::get('/events', 'Admin\EventController@getAll')->name('events.index');
+Route::get('/notices', 'Admin\NoticeController@getAll')->name('notices.index');
+Route::get('/pages/{slug}', 'Admin\PageController@getBySlug')->name('page.show');
+Route::get('/galleries/{id}', 'Admin\GalleryController@getImages')->name('galleries.show');
+
 
 
 Route::group(['middleware' => ['auth']], function () {

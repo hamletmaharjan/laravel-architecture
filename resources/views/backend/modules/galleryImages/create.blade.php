@@ -38,7 +38,7 @@
         <div class="form-group {{ ($errors->has('image'))?'has-error':'' }}">
             <label>Image</label>
             {!! Form::file('image',null,['class'=>'form-control']) !!}
-            <!-- {!! $errors->first('country_name', '<span class="text-danger">:message</span>') !!} -->
+            {!! $errors->first('image', '<span class="text-danger">:message</span>') !!}
         </div>
         <div class="form-group {{ ($errors->has('status'))?'has-error':'' }}">
             <label for="status">{{trans('app.status')}} </label><br>

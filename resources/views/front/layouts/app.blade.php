@@ -54,7 +54,7 @@
         <div class="row align-items-center">
           
           <div class="col-6 col-md-3 col-xl-4  d-block">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">imagine<span class="text-primary">.</span> </a></h1>
+            <h1 class="mb-0 site-logo"><a href="/" class="text-black h2 mb-0">imagine<span class="text-primary">.</span> </a></h1>
           </div>
 
           <div class="col-12 col-md-9 col-xl-8 main-menu">
@@ -62,10 +62,11 @@
                 <?php
                     $menus = App\Models\Modules\NavbarMenu::where('parent_id', '=', 0)->get();
                     $allMenus = App\Models\Modules\NavbarMenu::pluck('menu_name','id')->all();
+                    $galleries = App\Models\Modules\Gallery::get();
                  ?>
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
-                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
                 @foreach($menus as $menu)
                 @if(count($menu->childs))
                     <li class="has-children">
@@ -83,19 +84,35 @@
                                 </ul>
                                 </li> -->
                             @else
-                                <li><a href="#" class="nav-link">{{$child->menu_name}}</a></li>
+                                <li><a href="{{url('pages',$child->page_slug)}}" class="nav-link">{{$child->menu_name}}</a></li>
                             @endif
                             @endforeach
                             
                         </ul>
                     </li>
                 @else
-                    <li><a href="#" class="nav-link">{{$menu->menu_name}}</a></li>
+                    <li><a href="{{url('pages',$menu->page_slug)}}" class="nav-link">{{$menu->menu_name}}</a></li>
                 @endif
                 @endforeach
-                <li><a href="#posts-section" class="nav-link">Posts</a></li>
-                <li><a href="#events-section" class="nav-link">Events</a></li>
-                <li><a href="#news-section" class="nav-link">News</a></li>
+
+                <li class="has-children">
+                  <a href="#galleries-section" class="nav-link">Gallery</a>
+                  <ul class="dropdown arrow-top">
+                    @foreach($galleries as $gallery)
+                      <li><a href="{{route('galleries.show',['id'=>$gallery->id])}}" class="nav-link">{{$gallery->gallery_name}}</a></li>
+                    @endforeach
+                  </ul>
+                </li>
+                <li class="has-children">
+                  <a href="#about-section" class="nav-link">Insights</a>
+                  <ul class="dropdown arrow-top">
+                    <li><a href="/posts" class="nav-link">Posts</a></li>
+                    <li><a href="/events" class="nav-link">Events</a></li>
+                    <li><a href="/news" class="nav-link">News</a></li>
+                    <li><a href="/notices" class="nav-link">Notices</a></li>
+                  </ul>
+                </li>
+                
               </ul>
             </nav>
           </div>

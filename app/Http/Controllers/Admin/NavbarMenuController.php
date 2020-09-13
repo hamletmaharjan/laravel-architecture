@@ -19,7 +19,11 @@ class NavbarMenuController extends Controller
 
     public function store(Request $request) {
 
-    //   dd($request);
+        $request->validate([
+            'menu_name' => ['required', 'max:30'],
+            'page_slug' => ['required']
+        ]);
+        
         try{
             $navbarMenu = new NavbarMenu();
             $navbarMenu->menu_name = $request->menu_name;
@@ -68,6 +72,12 @@ class NavbarMenuController extends Controller
     public function update(Request $request, $id) {
 
         // dd($request);
+
+        $request->validate([
+            'menu_name' => ['required', 'max:30'],
+            'page_slug' => ['required']
+        ]);
+
         $id = (int)$id;
         try{
             $navbarMenu = NavbarMenu::findOrFail($id);
