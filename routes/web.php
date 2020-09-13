@@ -1,10 +1,18 @@
 <?php
 
 Auth::routes();
-Route::get('/',function (){
-    return Redirect::to('/login');
+// Route::get('/',function (){
+//     return Redirect::to('/login');
+// });
+Route::get('/', function() {
+    return view('front.index');
 });
-//Route::get('/', 'HomeController@index');
+Route::get('/about', function() {
+    return view('front.about');
+});
+Route::get('/posts', 'Admin\PostController@getAll')->name('posts.index');
+Route::get('/news', 'Admin\NewsController@getAll')->name('news.index');
+Route::get('/events', 'Admin\EventController@getAll')->name('events.index');
 
 
 Route::group(['middleware' => ['auth']], function () {

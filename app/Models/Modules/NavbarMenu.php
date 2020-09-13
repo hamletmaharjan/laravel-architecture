@@ -13,6 +13,6 @@ class NavbarMenu extends Model
     }
 
     public function childs() {
-        return $this->hasMany('App\Models\Modules\NavbarMenu');
+        return $this->hasMany('App\Models\Modules\NavbarMenu', 'parent_id', 'id');
     }
 }
