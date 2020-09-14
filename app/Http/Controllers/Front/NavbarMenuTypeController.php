@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repository\Modules\NewsRepository;
+use App\Repository\Modules\NavbarMenuTypeRepository;
 
-class NewsController extends Controller
+class NavbarMenuTypeController extends Controller
 {
-    private $newsRepository;
+    private $navbarMenuTypeRepository;
 
-    public function __construct(NewsRepository $newsRepository){
-        $this->newsRepository = $newsRepository;
+    public function __construct(NavbarMenuTypeRepository $navbarMenuTypeRepository){
+        $this->navbarMenuTypeRepository = $navbarMenuTypeRepository;
     }
 
 
@@ -22,8 +22,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->newsRepository->all();
-        return view('front.news.index', compact('news'));
+        $navbarMenuTypes = $this->navbarMenuTypeRepository->all();
+        return view('front.navbarMenuTypes.index', compact('navbarMenuTypes'));
     }
 
     /**

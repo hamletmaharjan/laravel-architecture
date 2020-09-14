@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\ImageRepository;
+use App\Repository\Modules\PostRepository;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\Modules\PostRequest;
 use App\Models\Modules\Post;
@@ -13,14 +14,15 @@ use App\Models\Modules\Post;
 class PostController extends Controller
 {
     private $imageRepository;
+    private $postRepository;
 
-
-    public function __construct(ImageRepository $imageRepository){
+    public function __construct(ImageRepository $imageRepository, PostRepository $postRepository){
         $this->imageRepository = $imageRepository;
+        $this->postRepository = $postRepository;
     }
 
     public function index() {
-        $posts = Post::get();
+        $posts = $this->postRepository->all();
         return view('backend.modules.posts.index', compact('posts'));
     }
 
@@ -30,77 +32,102 @@ class PostController extends Controller
     }
 
     public function store(PostRequest $request){
-         //dd($request);
-    	// $request->validate([
-        //     'title' => ['required', 'string', 'max:30'],
-        //     'content' => ['required', 'string', 'max:255'],
-        //     'banner_image' => ['required']
-        // ]);
-
-    	$post = new Post();
-    	$post->title = $request->title;
-    	$post->content = $request->content;
-    	$post->user_id = Auth::user()->id;
-        $post->status = $request->status;
+        
+    	// dd($request);
+    	$input = $request->except('banner_image');
+        
         if($request->hasFile('banner_image')){
             $image = $request->file('banner_image');
             $imageName = $this->imageRepository->moveImageWithName($image, 'posts');
-            //$location = public_path('user/images/'.$imageName);
-            $post->banner_image = $imageName;
+            $input['banner_image'] = $imageName;
         }
-        //dd($post);
-        $post->save();
-        return redirect()->route('admin.posts.index');
+        $input['user_id'] = Auth::user()->id;
+        try{
+            $create = Post::create($input);
+            if($create){
+                session()->flash('success','Post successfully created!');
+                return back();
+            }else{
+                session()->flash('error','Post could not be created!');
+                return back();
+            }
+        }catch (\Exception $e){
+            $e->getMessage();
+            session()->flash('error','Exception : '.$e);
+            return back();
+        }
+       
+    }
+
+    public function show($id) {
+        $post = $this->postRepository->findById($id);
+        dd($post);
     }
 
     public function edit($id){
-    	$posts = Post::get();
-    	$edits = Post::findOrFail($id);
+    	$posts = $this->postRepository->all();
+    	$edits = $this->postRepository->findById($id);
         
         return view('backend.modules.posts.index', compact('posts','edits'));
-    	//$post = $this->postServices->getById($id);
     	
     }
 
-    public function update(Request $request, $id){
-       //dd($request);
-        $post = Post::findOrFail($id);
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->status = $request->status;
-        $imagePath = public_path()."/uploads/posts/".$post->banner_image;
-        
-        if($request->hasFile('banner_image')){
-            if(File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
+    public function update(PostRequest $request, $id){
 
-            $image = $request->file('banner_image');
-            $imageName = $this->imageRepository->moveImageWithName($image, 'posts');
-            $post->banner_image = $imageName;
+        $input = $request->except('banner_image');
+        // dd($input);
+        $id = (int)$id;
+        try{
+            $post = $this->postRepository->findById($id);
+            $imagePath = public_path()."/uploads/posts/".$post->banner_image;
+            if($request->hasFile('banner_image')){
+                if(File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+
+                $image = $request->file('banner_image');
+                $imageName = $this->imageRepository->moveImageWithName($image, 'posts');
+                $input['banner_image'] = $imageName;
+            }
+            // dd($input);
+            if($post){
+                $post->fill($input)->save();
+                session()->flash('success','Post updated successfully!');
+
+                return redirect(route('admin.posts.index'));
+            }else{
+
+                session()->flash('error','No record with given id!');
+                return back();
+            }
+        }catch (\Exception $e){
+            $exception=$e->getMessage();
+            session()->flash('error','EXCEPTION:'.$exception);
+            return back();
         }
-        $post->save();
-        session()->flash('success','Updated successfully!');
-        return redirect()->route('admin.posts.index');
         
     }
 
     public function destroy($id){
-        //dd($id);
-        $post = Post::findOrFail($id);
-        $imagePath = public_path()."/uploads/posts/".$post->banner_image;
-        if(File::exists($imagePath)) {
-            File::delete($imagePath);
+
+        $id=(int)$id;
+        try{
+            $value = $this->postRepository->findById($id);
+            $imagePath = public_path()."/uploads/posts/".$value->banner_image;
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+            $value->delete();
+            session()->flash('success','Post successfully deleted!');
+            return back();
+
+        }catch (\Exception $e){
+            $exception=$e->getMessage();
+            session()->flash('error','EXCEPTION'.$exception);
+            return back();
+
         }
-        $post->delete();
-        session()->flash('success','Successfully deleted!');
-        return back();
     	
     }
 
-    public function getAll() {
-        $posts = Post::where('status', 'active')->get();
-        
-        return view('front.posts.index', compact('posts'));
-    }
 }

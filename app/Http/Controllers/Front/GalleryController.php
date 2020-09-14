@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repository\Modules\NewsRepository;
+use App\Repository\Modules\GalleryRepository;
 
-class NewsController extends Controller
+class GalleryController extends Controller
 {
-    private $newsRepository;
+    private $galleryRepository;
 
-    public function __construct(NewsRepository $newsRepository){
-        $this->newsRepository = $newsRepository;
+    public function __construct(GalleryRepository $galleryRepository){
+        $this->galleryRepository = $galleryRepository;
     }
 
 
@@ -22,8 +22,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->newsRepository->all();
-        return view('front.news.index', compact('news'));
+        $galleries = $this->galleryRepository->all();
+        return view('front.galleries.index', compact('galleries'));
     }
 
     /**

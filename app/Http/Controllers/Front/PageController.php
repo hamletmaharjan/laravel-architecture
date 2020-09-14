@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repository\Modules\NewsRepository;
+use App\Repository\Modules\pageRepository;
 
-class NewsController extends Controller
+class PageController extends Controller
 {
-    private $newsRepository;
+    private $pageRepository;
 
-    public function __construct(NewsRepository $newsRepository){
-        $this->newsRepository = $newsRepository;
+    public function __construct(pageRepository $pageRepository){
+        $this->pageRepository = $pageRepository;
     }
 
 
@@ -22,8 +22,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->newsRepository->all();
-        return view('front.news.index', compact('news'));
+        $pages = $this->pageRepository->all();
+        return view('front.pages.index', compact('pages'));
     }
 
     /**

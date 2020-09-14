@@ -1,0 +1,109 @@
+a {
+    font-size: small;
+    color: #d2c8c8;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #e42d1b;
+    text-decoration: underline;
+}
+
+div {
+    font-family: Georgia Regular;
+}
+
+footer {
+    padding-top: 35px;
+    background-color: rgb(36, 34, 34);
+}
+
+#contact-button {
+    background-color: #009afe;
+    margin-left: 10px;
+    padding-top: 12px;
+    margin-top: 15px;
+}
+
+#contact-gradient {
+    padding-top: 18px;
+    background: linear-gradient(90deg, #0599fd 1%, #e0e0e0 1%);
+}
+
+#nav-hover {
+    color: black;
+}
+
+#nav-hover:hover {
+    color: #aaa7a7;
+    border-bottom: 5px solid #0599fd;
+}
+
+a.active {
+    color: #aaa7a7;
+    border-bottom: 5px solid #0599fd;
+}
+
+#quick-link {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0;
+    border-top: 2px solid #343a40;
+}
+
+h6 {
+    color: #ffffff;
+}
+
+#form-grp {
+    background-color: #232323;
+}
+
+.post-title {
+    color: #aaa7a7;
+}
+
+h5.card-title {
+    color: #3084ec;
+}
+
+.post-meta {
+    margin-top: -10px;
+    font-size: 10px;
+    color: #aaa7a7;
+}
+
+.post-subtitle {
+    margin-top: -10px;
+    font-size: 12px;
+    color: #aaa7a7;
+}
+
+.read-more {
+    margin-left: 168px;
+    margin-top: -15px;
+    color: #3882b3;
+}
+
+.carousel-caption {
+    right: 15%;
+    bottom: 20px;
+    left: 15%;
+    top: 25%;
+    text-align: justify;
+    color: #333333;
+}
+
+ul.list-up {
+    list-style-type: none;
+    margin-left: -35px;
+}
+
+.list-link {
+    color: #8c8d94;
+}
+
+.link-text-color {
+    color: #3882b3;
+}
