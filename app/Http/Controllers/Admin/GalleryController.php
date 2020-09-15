@@ -5,27 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Modules\Gallery;
+use App\Repository\Modules\GalleryRepository;
+use App\Http\Requests\Modules\GalleryRequest;
 
 class GalleryController extends Controller
 {
     
+    private $galleryRepository;
+
+    public function __construct(GalleryRepository $galleryRepository){
+        $this->galleryRepository = $galleryRepository;
+    }
+
 
     public function index(){
-        $galleries = Gallery::get();
+        $galleries = $this->galleryRepository->all();
         return view('backend.modules.galleries.index', compact('galleries'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'gallery_name' => ['required', 'max:30']
-            
-        ]);
-      // dd($request);
+    public function store(GalleryRequest $request) {
+      
         try{
-            $gallery = new Gallery();
-            $gallery->gallery_name = $request->gallery_name;
+            $create = Gallery::create($request->all());
             
-            if($gallery->save()){
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -43,10 +46,10 @@ class GalleryController extends Controller
         // dd($id);
         try{
             $id = (int)$id;
-            $edits = Gallery::findOrFail($id);
+            $edits = $this->galleryRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $galleries = Gallery::get();
+                $galleries = $this->galleryRepository->all();
                 return view('backend.modules.galleries.index', compact('edits','galleries'));
             }
             else{
@@ -60,19 +63,15 @@ class GalleryController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'gallery_name' => ['required', 'max:30']
-            
-        ]);
+    public function update(GalleryRequest $request, $id) {
+        
         // dd($request);
         $id = (int)$id;
         try{
-            $gallery = Gallery::findOrFail($id);
-            $gallery->gallery_name = $request->gallery_name;
-            
-            if($gallery->save()){
-               
+            $gallery = $this->galleryRepository->findById($id);
+
+            if($gallery){
+                $gallery->fill($request->all())->save();
                 session()->flash('success','Gallery updated successfully!');
 
                 return redirect(route('admin.galleries.index'));
@@ -92,8 +91,8 @@ class GalleryController extends Controller
     //    dd($id);
         $id=(int)$id;
         try{
-            $gallery = Gallery::findOrFail($id);
-            $gallery->delete();
+            $value = $this->galleryRepository->findById($id);
+            $value->delete();
             session()->flash('success','Gallery successfully deleted!');
             return back();
 

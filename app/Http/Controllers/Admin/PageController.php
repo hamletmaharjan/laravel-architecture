@@ -158,14 +158,14 @@ class PageController extends Controller
         }
     }
 
-    public function getBySlug($slug) {
-        try {
-            $page = Page::where('slug', '=', $slug)->where('status','active')->first();
-            return view('front.pages.show', compact('page'));
-        }catch (\Exception $e) {
-            $exception = $e->getMessage();
-            session()->flash('error', 'EXCEPTION :' . $exception);
-        }
+    // public function getBySlug($slug) {
+    //     try {
+    //         $page = Page::where('slug', '=', $slug)->where('status','active')->first();
+    //         return view('front.pages.show', compact('page'));
+    //     }catch (\Exception $e) {
+    //         $exception = $e->getMessage();
+    //         session()->flash('error', 'EXCEPTION :' . $exception);
+    //     }
         
-    }
+    // }
 }
