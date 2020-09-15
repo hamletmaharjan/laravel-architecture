@@ -27,7 +27,7 @@ class NavbarMenuTypeRepository
         return $result;
     }
     public function findById($id) {
-        $result = $this->post->find($id);
+        $result = $this->navbarMenuType->find($id);
         return $result;
     }
 

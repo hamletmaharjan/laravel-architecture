@@ -7,47 +7,46 @@ use Illuminate\Http\Request;
 use App\Repository\ImageRepository;
 use Illuminate\Support\Facades\File;
 use App\Models\Modules\GalleryImage;
+use App\Repository\Modules\GalleryImageRepository;
+use App\Repository\Modules\GalleryRepository;
+use App\Http\Requests\Modules\GalleryImageRequest;
 use App\Models\Modules\Gallery;
 
 class GalleryImageController extends Controller
 {
     private $imageRepository;
+    private $galleryImageRepository;
+    private $galleryRepository;
 
-
-    public function __construct(ImageRepository $imageRepository){
+    public function __construct(ImageRepository $imageRepository,
+    GalleryImageRepository $galleryImageRepository,
+    GalleryRepository $galleryRepository){
         $this->imageRepository = $imageRepository;
+        $this->galleryImageRepository = $galleryImageRepository;
+        $this->galleryRepository = $galleryRepository;
     }
 
     public function index(){
-        $galleryImages = GalleryImage::get();
-        $galleries = Gallery::get();
+        $galleryImages = $this->galleryImageRepository->all();
+        $galleries = $this->galleryRepository->all();
         return view('backend.modules.galleryImages.index', compact('galleryImages','galleries'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'image' => ['required'],
-            'display_order' => ['required']
-            
-        ]);
-    //    dd($request);
+    public function store(GalleryImageRequest $request) {
+        
+       
         try{
-            $galleryImage = new GalleryImage();
-            $galleryImage->title = $request->title;
-            $galleryImage->display_order = $request->display_order;
-            $galleryImage->gallery_id = $request->gallery_id;
-            $galleryImage->status = $request->status;
+            $input = $request->except('image');
+        
             if($request->hasFile('image')){
                 $image = $request->file('image');
                 $imageName = $this->imageRepository->moveImageWithName($image, 'galleryImages');
-                //$location = public_path('user/images/'.$imageName);
-                $galleryImage->image = $imageName;
+                $input['image'] = $imageName;
             }
-            //dd($post);
             
+            $create = GalleryImage::create($input);
             
-            if($galleryImage->save()){
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -65,11 +64,11 @@ class GalleryImageController extends Controller
         // dd($id);
         try{
             $id = (int)$id;
-            $edits = GalleryImage::findOrFail($id);
+            $edits = $this->galleryImageRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $galleryImages = GalleryImage::get();
-                $galleries = Gallery::get();
+                $galleryImages = $this->galleryImageRepository->all();
+                $galleries = $this->galleryRepository->all();
                 return view('backend.modules.galleryImages.index', compact('edits','galleryImages', 'galleries'));
             }
             else{
@@ -83,21 +82,12 @@ class GalleryImageController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'image' => ['required'],
-            'display_order' => ['required']
-            
-        ]);
-        // dd($request);
+    public function update(GalleryImageRequest $request, $id) {
+        
         $id = (int)$id;
         try{
-            $galleryImage =  GalleryImage::findOrFail($id);
-            $galleryImage->title = $request->title;
-            $galleryImage->display_order = $request->display_order;
-            $galleryImage->gallery_id = $request->gallery_id;
-            $galleryImage->status = $request->status;
+            $galleryImage =  $this->galleryImageRepository->findById($id);
+            $input = $request->except('image');
             $imagePath = public_path()."/uploads/galleryImages/".$galleryImage->image;
         
             if($request->hasFile('image')){
@@ -107,12 +97,12 @@ class GalleryImageController extends Controller
     
                 $image = $request->file('image');
                 $imageName = $this->imageRepository->moveImageWithName($image, 'galleryImages');
-                $galleryImage->image = $imageName;
+                $input['image'] = $imageName;
             }
             
-            if($galleryImage->save()){
-               
-                session()->flash('success','News updated successfully!');
+            if($galleryImage){
+                $galleryImage->fill($input)->save();
+                session()->flash('success','Gallery Image updated successfully!');
 
                 return redirect(route('admin.galleryImages.index'));
             }else{
@@ -131,12 +121,12 @@ class GalleryImageController extends Controller
   
         $id=(int)$id;
         try{
-            $galleryImage = GalleryImage::findOrFail($id);
-            $imagePath = public_path()."/uploads/galleryImages/".$galleryImage->image;
+            $value = $this->galleryImageRepository->findById($id);
+            $imagePath = public_path()."/uploads/galleryImages/".$value->image;
             if(File::exists($imagePath)) {
                 File::delete($imagePath);
             }
-            $galleryImage->delete();
+            $value->delete();
             session()->flash('success','Gallery Image successfully deleted!');
             return back();
 

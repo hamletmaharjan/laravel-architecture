@@ -55,8 +55,8 @@ class NavbarMenuController extends Controller
             {
                 $navbarMenus = NavbarMenu::get();
                 $navbarMenuTypes = NavbarMenuType::get();
-                $parentMenus = NavbarMenu::where('parent_id',0)->get();
-                return view('backend.modules.navbarMenus.index', compact('edits','navbarMenus','navbarMenuTypes','parentMenus'));
+                // $parentMenus = NavbarMenu::where('parent_id',0)->get();
+                return view('backend.modules.navbarMenus.index', compact('edits','navbarMenus','navbarMenuTypes'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');

@@ -79,6 +79,7 @@ class PostController extends Controller
         $id = (int)$id;
         try{
             $post = $this->postRepository->findById($id);
+            
             $imagePath = public_path()."/uploads/posts/".$post->banner_image;
             if($request->hasFile('banner_image')){
                 if(File::exists($imagePath)) {
@@ -89,7 +90,7 @@ class PostController extends Controller
                 $imageName = $this->imageRepository->moveImageWithName($image, 'posts');
                 $input['banner_image'] = $imageName;
             }
-            // dd($input);
+            
             if($post){
                 $post->fill($input)->save();
                 session()->flash('success','Post updated successfully!');
