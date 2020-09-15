@@ -3,30 +3,26 @@
 
 @section('content')
 
-<div class="site-section" id="news-section" style="padding-top:130px;">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 text-center">
-            <h2 class="section-title mb-3">News</h2>
-          </div>
-        </div>
+  <!-- ======= Frequently Asked Questions Section ======= -->
+  <section id="news" class="faq section-bg">
+    <div class="container">
 
-        <div class="row">
-            @foreach($news as $newsItem)
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
-                <div class="h-entry">
-                
-                <h2><a href="#">{{$newsItem->title}}</a></h2>
-                <div class="meta mb-4">{{$newsItem->user->name}} <span class="mx-2">&bullet;</span> {{$newsItem->created_at}}<span class="mx-2">&bullet;</span> <a href="#"> News</a></div>
-                <p>{{$newsItem->details}}</p>
-                <p><a href="#">Continue Reading...</a></p>
-                </div> 
-            </div>
-            @endforeach
-            
-            
-          
-        </div>
+      <div class="section-title">
+        <h2>News Highlights</h2>
       </div>
+
+      <div class="row  d-flex align-items-stretch">
+      @foreach($news as $newsItem)
+        <div class="col-lg-6 faq-item" data-aos="fade-up">
+          <h4>{{$newsItem->title}}</h4>
+          <p>
+            {{substr($newsItem->details, 0 ,150)}}...
+          </p>
+          <p><a href="{{url('/news/'.$newsItem->id)}}">Continue Reading...</a></p>
+        </div>
+      @endforeach
+      </div>
+
     </div>
+  </section><!-- End Frequently Asked Questions Section -->
 @endsection

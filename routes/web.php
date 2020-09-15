@@ -7,6 +7,12 @@ Auth::routes();
 Route::get('/', function() {
     return view('front.index');
 });
+Route::resource('/posts', 'Front\PostController')->only([
+    'index', 'show'
+]);
+Route::resource('/news', 'Front\NewsController')->only([
+    'index', 'show'
+]);
 // Route::get('/about', function() {
 //     return view('front.about');
 // });

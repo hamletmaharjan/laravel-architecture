@@ -55,7 +55,8 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = $this->newsRepository->findById($id);
+        return view('front.news.show', compact('news'));
     }
 
     /**

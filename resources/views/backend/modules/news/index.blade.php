@@ -73,7 +73,7 @@
                                                 <tr>
                                                     <th scope=row>{{$i}}</th>
                                                     <td>{{$newsItem->title}}</td>
-                                                    <td>{{$newsItem->details}}</td>
+                                                    <td>{{substr($newsItem->details, 0, 100)}}...</td>
                                                     <td>{{$newsItem->user_id}}</td>
                                                     <td class="text-center">
                                                         @if($newsItem->status == 'active')
