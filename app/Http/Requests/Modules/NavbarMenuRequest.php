@@ -13,7 +13,7 @@ class NavbarMenuRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class NavbarMenuRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'menu_name' => ['required', 'max:30'],
+            'page_slug' => ['required']
         ];
     }
 }

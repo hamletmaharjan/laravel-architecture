@@ -7,42 +7,40 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\FileRepository;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\Modules\NewsRequest;
+use App\Repository\Modules\NewsRepository;
 use App\Models\Modules\News;
 
 class NewsController extends Controller
 {
 
     private $fileRepository;
+    private $newsRepository;
 
-
-    public function __construct(FileRepository $fileRepository){
+    public function __construct(FileRepository $fileRepository, NewsRepository $newsRepository){
         $this->fileRepository = $fileRepository;
+        $this->newsRepository = $newsRepository;
     }
 
     public function index(){
-        $news = News::get();
+        $news = $this->newsRepository->all();
         return view('backend.modules.news.index', compact('news'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'title' => ['required', 'max:30']
-        ]);
+    public function store(NewsRequest $request) {
+        
        // dd($request);
         try{
-            $news = new News();
-            $news->title = $request->title;
-            $news->details = $request->details;
-            $news->user_id = Auth::user()->id;
-            $news->status = $request->status;
+            $input = $request->except('file');
+            $input['user_id'] = Auth::user()->id;
+           
             if($request->hasFile('file')){
                 $file = $request->file('file');
                 $fileName = $this->fileRepository->moveFileWithName($file, 'news');
-                //$location = public_path('user/images/'.$imageName);
-                $news->file = $fileName;
+                $input['file'] = $fileName;
             }
-            
-            if($news->save()){
+            $create = News::create($input);
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -59,10 +57,10 @@ class NewsController extends Controller
     public function edit($id) {
         try{
             $id = (int)$id;
-            $edits = News::findOrFail($id);
+            $edits = $this->newsRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $news = News::get();
+                $news = $this->newsRepository->all();
                 return view('backend.modules.news.index', compact('edits','news'));
             }
             else{
@@ -76,19 +74,13 @@ class NewsController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'title' => ['required', 'max:30']
-        ]);
+    public function update(NewsRequest $request, $id) {
         //dd($request);
         $id = (int)$id;
         try{
-            $news = News::findOrFail($id);
-            $news->title = $request->title;
-            $news->details = $request->details;
-            $news->status = $request->status;
+            $news = $this->newsRepository->findById($id);
             $filePath = public_path()."/uploads/news/".$news->file;
-        
+            $input = $request->except('file');
             if($request->hasFile('file')){
                 if(File::exists($filePath)) {
                     File::delete($filePath);
@@ -96,11 +88,11 @@ class NewsController extends Controller
 
                 $file = $request->file('file');
                 $fileName = $this->fileRepository->moveFileWithName($file, 'news');
-                $news->file = $fileName;
+                $input['file'] = $fileName;
             }
             
-            if($news->save()){
-               
+            if($news){
+                $news->fill($input)->save();
                 session()->flash('success','News updated successfully!');
 
                 return redirect(route('admin.news.index'));
@@ -120,7 +112,7 @@ class NewsController extends Controller
        // dd($id);
         $id=(int)$id;
         try{
-            $news = News::findOrFail($id);
+            $news = $this->newsRepository->findById($id);
             $filePath = public_path()."/uploads/news/".$news->file;
             if(File::exists($filePath)) {
                 File::delete($filePath);

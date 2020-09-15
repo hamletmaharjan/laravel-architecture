@@ -7,46 +7,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\FileRepository;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\Modules\NoticeRequest;
+use App\Repository\Modules\NoticeRepository;
 use App\Models\Modules\Notice;
 
 class NoticeController extends Controller
 {
     private $fileRepository;
-
-
-    public function __construct(FileRepository $fileRepository){
+    private $noticeRepository;
+    public function __construct(FileRepository $fileRepository, NoticeRepository $noticeRepository){
         $this->fileRepository = $fileRepository;
+        $this->noticeRepository = $noticeRepository;
     }
 
     public function index(){
-        $notices = Notice::get();
+        $notices = $this->noticeRepository->all();
         return view('backend.modules.notices.index', compact('notices'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'content' => ['required'],
-            'display_order' => ['required','unique:notices'],
-            'notice_date' => ['required']
-        ]);
-      
+    public function store(NoticeRequest $request) {
         try{
-            $notice = new Notice();
-            $notice->title = $request->title;
-            $notice->content = $request->content;
-            $notice->notice_date = $request->notice_date;
-            $notice->user_id = Auth::user()->id;
-            $notice->status = $request->status;
-            $notice->display_order = $request->display_order;
+            $input = $request->except('file');
+            $input['user_id'] = Auth::user()->id;
             if($request->hasFile('file')){
                 $file = $request->file('file');
                 $fileName = $this->fileRepository->moveFileWithName($file, 'notices');
-                //$location = public_path('user/images/'.$imageName);
-                $notice->file = $fileName;
+                $input['file'] = $fileName;
             }
-            
-            if($notice->save()){
+            $create = Notice::create($input);
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -63,10 +52,9 @@ class NoticeController extends Controller
     public function edit($id) {
         try{
             $id = (int)$id;
-            $edits = Notice::findOrFail($id);
-            if ($edits->count() > 0)
-            {
-                $notices = Notice::get();
+            $edits = $this->noticeRepository->findById($id);
+            if ($edits->count() > 0) {
+                $notices = $this->noticeRepository->all();
                 return view('backend.modules.notices.index', compact('edits','notices'));
             }
             else{
@@ -80,35 +68,23 @@ class NoticeController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'content' => ['required'],
-            'display_order' => ['required','unique:notices'],
-            'notice_date' => ['required']
-        ]);
+    public function update(NoticeRequest $request, $id) { 
         $id = (int)$id;
         try{
-            $notice = Notice::findOrFail($id);
-            $notice->title = $request->title;
-            $notice->content = $request->content;
-            $notice->notice_date = $request->notice_date;
-            $notice->status = $request->status;
-            $notice->display_order = $request->display_order;
+            $notice = $this->noticeRepository->findById($id);
             $filePath = public_path()."/uploads/notices/".$notice->file;
-        
+            $input = $request->except('file');
             if($request->hasFile('file')){
                 if(File::exists($filePath)) {
                     File::delete($filePath);
                 }
-
                 $file = $request->file('file');
                 $fileName = $this->fileRepository->moveFileWithName($file, 'notices');
-                $notice->file = $fileName;
+                $input['file'] = $fileName;
             }
             
-            if($notice->save()){
-               
+            if($notice){
+                $notice->fill($input)->save();
                 session()->flash('success','Notice updated successfully!');
 
                 return redirect(route('admin.notices.index'));
@@ -125,10 +101,9 @@ class NoticeController extends Controller
     }
 
     public function destroy($id) {
-       
         $id=(int)$id;
         try{
-            $notice = Notice::findOrFail($id);
+            $notice = $this->noticeRepository->findById($id);
             $filePath = public_path()."/uploads/notices/".$notice->file;
             if(File::exists($filePath)) {
                 File::delete($filePath);

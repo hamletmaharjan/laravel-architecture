@@ -41,7 +41,7 @@
             </select>
         </div>
         <div class="form-group {{ ($errors->has('page_slug'))?'has-error':'' }}">
-            <label>Page Slug
+            <label>Page link
                 <label class="text-danger"> *</label>
             </label>
             {!! Form::text('page_slug',null,['class'=>'form-control']) !!}
