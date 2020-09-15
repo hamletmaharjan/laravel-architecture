@@ -69,79 +69,36 @@ Route::group(['middleware' => ['auth']], function () {
 
     //additional
     Route::prefix('admin')->group(function () {
-        Route::get('/posts', 'Admin\PostController@index')->name('admin.posts.index');
-        Route::post('/posts', 'Admin\PostController@store')->name('admin.posts.store');
-        Route::get('/posts/{id}/edit', 'Admin\PostController@edit')->name('admin.posts.edit');
-        Route::put('/posts/{id}', 'Admin\PostController@update')->name('admin.posts.update');
-        Route::delete('/posts/{id}', 'Admin\PostController@destroy')->name('admin.posts.destroy');
+        Route::resource('/posts', 'Admin\PostController', ['as' => 'admin']);
 
         //News
-        Route::get('/news', 'Admin\NewsController@index')->name('admin.news.index');
-        Route::post('/news', 'Admin\NewsController@store')->name('admin.news.store');
-        Route::get('/news/{id}/edit', 'Admin\NewsController@edit')->name('admin.news.edit');
-        Route::put('/news/{id}', 'Admin\NewsController@update')->name('admin.news.update');
-        Route::delete('/news/{id}', 'Admin\NewsController@destroy')->name('admin.news.destroy');
-
-
+        Route::resource('/news', 'Admin\NewsController', ['as' => 'admin']);
         Route::get('/news/status/{id}', 'Admin\NewsController@status')->name('admin.news.status');
 
         //galleries
-        Route::get('/galleries', 'Admin\GalleryController@index')->name('admin.galleries.index');
-        Route::post('/galleries', 'Admin\GalleryController@store')->name('admin.galleries.store');
-        Route::get('/galleries/{id}/edit', 'Admin\GalleryController@edit')->name('admin.galleries.edit');
-        Route::put('/galleries/{id}', 'Admin\GalleryController@update')->name('admin.galleries.update');
-        Route::delete('/galleries/{id}', 'Admin\GalleryController@destroy')->name('admin.galleries.destroy');
+        Route::resource('/galleries', 'Admin\GalleryController', ['as' => 'admin']);
         
         //gallery images
-        Route::get('/galleryImages', 'Admin\GalleryImageController@index')->name('admin.galleryImages.index');
-        Route::post('/galleryImages', 'Admin\GalleryImageController@store')->name('admin.galleryImages.store');
-        Route::get('/galleryImages/{id}/edit', 'Admin\GalleryImageController@edit')->name('admin.galleryImages.edit');
-        Route::put('/galleryImages/{id}', 'Admin\GalleryImageController@update')->name('admin.galleryImages.update');
-        Route::delete('/galleryImages/{id}', 'Admin\GalleryImageController@destroy')->name('admin.galleryImages.destroy');
-
+        Route::resource('/galleryImages', 'Admin\GalleryImageController', ['as' => 'admin']);
         Route::get('/galleryImages/status/{id}', 'Admin\GalleryImageController@status')->name('admin.galleryImages.status');
 
         //events
-        Route::get('/events', 'Admin\EventController@index')->name('admin.events.index');
-        Route::post('/events', 'Admin\EventController@store')->name('admin.events.store');
-        Route::get('/events/{id}/edit', 'Admin\EventController@edit')->name('admin.events.edit');
-        Route::put('/events/{id}', 'Admin\EventController@update')->name('admin.events.update');
-        Route::delete('/events/{id}', 'Admin\EventController@destroy')->name('admin.events.destroy');
-
+        Route::resource('/events', 'Admin\EventController', ['as' => 'admin']);
         Route::get('/events/status/{id}', 'Admin\EventController@status')->name('admin.events.status');
 
         //navbar menu types
-        Route::get('/navbarMenuTypes', 'Admin\NavbarMenuTypeController@index')->name('admin.navbarMenuTypes.index');
-        Route::post('/navbarMenuTypes', 'Admin\NavbarMenuTypeController@store')->name('admin.navbarMenuTypes.store');
-        Route::get('/navbarMenuTypes/{id}/edit', 'Admin\NavbarMenuTypeController@edit')->name('admin.navbarMenuTypes.edit');
-        Route::put('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@update')->name('admin.navbarMenuTypes.update');
-        Route::delete('/navbarMenuTypes/{id}', 'Admin\NavbarMenuTypeController@destroy')->name('admin.navbarMenuTypes.destroy');
+        Route::resource('/navbarMenuTypes', 'Admin\NavbarMenuTypeController', ['as' => 'admin']);
 
         //navbar menus
-        Route::get('/navbarMenus', 'Admin\NavbarMenuController@index')->name('admin.navbarMenus.index');
-        Route::post('/navbarMenus', 'Admin\NavbarMenuController@store')->name('admin.navbarMenus.store');
-        Route::get('/navbarMenus/{id}/edit', 'Admin\NavbarMenuController@edit')->name('admin.navbarMenus.edit');
-        Route::put('/navbarMenus/{id}', 'Admin\NavbarMenuController@update')->name('admin.navbarMenus.update');
-        Route::delete('/navbarMenus/{id}', 'Admin\NavbarMenuController@destroy')->name('admin.navbarMenus.destroy');
-
+        Route::resource('/navbarMenus', 'Admin\NavbarMenuController', ['as' => 'admin']);
         Route::get('/navbarMenus/status/{id}', 'Admin\NavbarMenuController@status')->name('admin.navbarMenus.status');
 
         //pages
-        Route::get('/pages', 'Admin\PageController@index')->name('admin.pages.index');
-        Route::post('/pages', 'Admin\PageController@store')->name('admin.pages.store');
-        Route::get('/pages/{id}/edit', 'Admin\PageController@edit')->name('admin.pages.edit');
-        Route::put('/pages/{id}', 'Admin\PageController@update')->name('admin.pages.update');
-        Route::delete('/pages/{id}', 'Admin\PageController@destroy')->name('admin.pages.destroy');
-
+        Route::resource('/pages', 'Admin\PageController', ['as' => 'admin']);
         Route::get('/pages/status/{id}', 'Admin\PageController@status')->name('admin.pages.status');
 
         //notices
-        Route::get('/notices', 'Admin\NoticeController@index')->name('admin.notices.index');
-        Route::post('/notices', 'Admin\NoticeController@store')->name('admin.notices.store');
-        Route::get('/notices/{id}/edit', 'Admin\NoticeController@edit')->name('admin.notices.edit');
-        Route::put('/notices/{id}', 'Admin\NoticeController@update')->name('admin.notices.update');
-        Route::delete('/notices/{id}', 'Admin\NoticeController@destroy')->name('admin.notices.destroy');
-
+        Route::resource('/notices', 'Admin\NoticeController', ['as' => 'admin']);
         Route::get('/notices/status/{id}', 'Admin\NoticeController@status')->name('admin.notices.status');
     });
 
