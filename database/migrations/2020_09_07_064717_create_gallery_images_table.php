@@ -21,7 +21,9 @@ class CreateGalleryImagesTable extends Migration
             $table->enum('status',['active','inactive'])->default('active');
             $table->integer('gallery_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
+            
             $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
         });
     }

@@ -5,42 +5,36 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\Modules\EventRepository;
+use App\Http\Requests\Modules\EventRequest;
 use App\Models\Modules\Event;
 
 class EventController extends Controller
 {
+
+    private $eventRepository;
+
+    public function __construct(EventRepository $eventRepository){
+        $this->eventRepository = $eventRepository;
+    }
+
+
     public function index(){
-        $events = Event::get();
+        $events = $this->eventRepository->all();
         return view('backend.modules.events.index', compact('events'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'start_date' => ['required'],
-            'end_date' => ['required'],
-            'start_time' => ['required'],
-            'end_time' => ['required'],
-            'venue' => ['required'],
-        ]);
+    public function store(EventRequest $request) {
         // dd($request);
         try{
-            $event = new Event();
-            $event->title = $request->title;
-            $event->start_date = $request->start_date;
-            $event->end_date = $request->end_date;
-            $event->start_time = $request->start_time;
-            $event->end_time = $request->end_time;
-            $event->venue = $request->venue;
-            $event->user_id = Auth::user()->id;
-            $event->status = $request->status;
-            
-            
-            if($event->save()){
-                session()->flash('success','Successfully created!');
+            $input = $request->all();
+            $input['user_id'] = Auth::user()->id;
+            $create = Event::create($input);
+            if($create){
+                session()->flash('success','Event successfully created!');
                 return back();
             }else{
-                session()->flash('error','Could not be created!');
+                session()->flash('error','Event could not be created!');
                 return back();
             }
         }catch (\Exception $e){
@@ -53,10 +47,10 @@ class EventController extends Controller
     public function edit($id) {
         try{
             $id = (int)$id;
-            $edits = Event::findOrFail($id);
+            $edits = $this->eventRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $events = Event::get();
+                $events = $this->eventRepository->all();
                 return view('backend.modules.events.index', compact('edits','events'));
             }
             else{
@@ -70,28 +64,14 @@ class EventController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'title' => ['required', 'max:30'],
-            'start_date' => ['required'],
-            'end_date' => ['required'],
-            'start_time' => ['required'],
-            'end_time' => ['required'],
-            'venue' => ['required'],
-        ]);
-        // dd($request);
+    public function update(EventRequest $request, $id) {
+        
         $id = (int)$id;
         try{
-            $event = Event::findOrFail($id);
-            $event->title = $request->title;
-            $event->start_date = $request->start_date;
-            $event->end_date = $request->end_date;
-            $event->start_time = $request->start_time;
-            $event->end_time = $request->end_time;
-            $event->venue = $request->venue;
-            $event->status = $request->status;
-            if($event->save()){
-               
+            $event = $this->eventRepository->findById($id);
+
+            if($event){
+                $event->fill($request->all())->save();
                 session()->flash('success','Event updated successfully!');
 
                 return redirect(route('admin.events.index'));
@@ -111,8 +91,8 @@ class EventController extends Controller
       // dd($id);
         $id=(int)$id;
         try{
-            $event = Event::findOrFail($id);
-            $event->delete();
+            $value = $this->eventRepository->findById($id);
+            $value->delete();
             session()->flash('success','Event successfully deleted!');
             return back();
 

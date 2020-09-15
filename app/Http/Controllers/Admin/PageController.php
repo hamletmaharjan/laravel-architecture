@@ -7,49 +7,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\FileRepository;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\Modules\PageRequest;
+use App\Repository\Modules\PageRepository;
 use App\Models\Modules\Page;
 
 class PageController extends Controller
 {
     private $fileRepository;
+    private $pageRepository;
 
-
-    public function __construct(FileRepository $fileRepository){
+    public function __construct(FileRepository $fileRepository, PageRepository $pageRepository){
         $this->fileRepository = $fileRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function index(){
-        $pages = Page::get();
+        $pages = $this->pageRepository->all();
         return view('backend.modules.pages.index', compact('pages'));
     }
 
-    public function store(Request $request) {
+    public function store(PageRequest $request) {
 
-    //    dd($request);
-        $request->validate([
-            'page_title' => ['required', 'string', 'max:30'],
-            'content' => ['required'],
-            'slug' => ['required','unique:pages']
-        ]);
+        $input = $request->except('file');
+        
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $fileName = $this->fileRepository->moveFileWithName($file, 'pages');
+            $input['file'] = $fileName;
+        }
+        $input['slug'] = $this->pageRepository->toSlug($request->page_title);
+        $input['user_id'] = Auth::user()->id;
         try{
-            $page = new Page();
-            $page->page_title = $request->page_title;
-            $page->content = $request->content;
-            $page->slug = $request->slug;
-            $page->user_id = Auth::user()->id;
-            $page->status = $request->status;
-            if($request->hasFile('file')){
-                $file = $request->file('file');
-                $fileName = $this->fileRepository->moveFileWithName($file, 'pages');
-                //$location = public_path('user/images/'.$imageName);
-                $page->file = $fileName;
-            }
-            
-            if($page->save()){
-                session()->flash('success','Successfully created!');
+            $create = Page::create($input);
+            if($create){
+                session()->flash('success','Page successfully created!');
                 return back();
             }else{
-                session()->flash('error','Could not be created!');
+                session()->flash('error','Page could not be created!');
                 return back();
             }
         }catch (\Exception $e){
@@ -59,13 +53,17 @@ class PageController extends Controller
         }
     }
 
+    public function show($id) {
+        $post = $this->pageRepository->findById($id);
+    }
+
     public function edit($id) {
         try{
             $id = (int)$id;
-            $edits = Page::findOrFail($id);
+            $edits = $this->pageRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $pages = Page::get();
+                $pages = $this->pageRepository->all();
                 return view('backend.modules.pages.index', compact('edits','pages'));
             }
             else{
@@ -80,35 +78,25 @@ class PageController extends Controller
     }
 
     public function update(Request $request, $id) {
-
-        // dd($request);
-        $request->validate([
-            'page_title' => ['required', 'string', 'max:30'],
-            'content' => ['required'],
-            'slug' => ['required','unique:pages']
-        ]);
         
+        $input = $request->except('file');
+        // dd($input);
         $id = (int)$id;
         try{
-            $page = Page::findOrFail($id);
-            $page->page_title = $request->page_title;
-            $page->content = $request->content;
-            $page->slug = $request->slug;
-            $page->status = $request->status;
+            $page = $this->pageRepository->findById($id);
             $filePath = public_path()."/uploads/pages/".$page->file;
-        
             if($request->hasFile('file')){
                 if(File::exists($filePath)) {
                     File::delete($filePath);
                 }
-
                 $file = $request->file('file');
                 $fileName = $this->fileRepository->moveFileWithName($file, 'pages');
-                $page->file = $fileName;
+                $input['file'] = $fileName;
             }
+            $input['slug'] = $this->pageRepository->toSlug($request->page_title);
             
-            if($page->save()){
-               
+            if($page){
+                $page->fill($input)->save();
                 session()->flash('success','Page updated successfully!');
 
                 return redirect(route('admin.pages.index'));
@@ -122,18 +110,20 @@ class PageController extends Controller
             session()->flash('error','EXCEPTION:'.$exception);
             return back();
         }
+
+        
     }
 
     public function destroy($id) {
     //    dd($id);
         $id=(int)$id;
         try{
-            $page = Page::findOrFail($id);
-            $filePath = public_path()."/uploads/pages/".$page->file;
+            $value = $this->pageRepository->findById($id);
+            $filePath = public_path()."/uploads/pages/".$value->file;
             if(File::exists($filePath)) {
                 File::delete($filePath);
             }
-            $page->delete();
+            $value->delete();
             session()->flash('success','Page successfully deleted!');
             return back();
 
@@ -168,14 +158,14 @@ class PageController extends Controller
         }
     }
 
-    public function getBySlug($slug) {
-        try {
-            $page = Page::where('slug', '=', $slug)->where('status','active')->first();
-            return view('front.pages.show', compact('page'));
-        }catch (\Exception $e) {
-            $exception = $e->getMessage();
-            session()->flash('error', 'EXCEPTION :' . $exception);
-        }
+    // public function getBySlug($slug) {
+    //     try {
+    //         $page = Page::where('slug', '=', $slug)->where('status','active')->first();
+    //         return view('front.pages.show', compact('page'));
+    //     }catch (\Exception $e) {
+    //         $exception = $e->getMessage();
+    //         session()->flash('error', 'EXCEPTION :' . $exception);
+    //     }
         
-    }
+    // }
 }

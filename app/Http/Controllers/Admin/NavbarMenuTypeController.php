@@ -5,24 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Modules\NavbarMenuType;
+use App\Repository\Modules\NavbarMenuTypeRepository;
+use App\Http\Requests\Modules\NavbarMenuTypeRequest;
 
 class NavbarMenuTypeController extends Controller
 {
+
+
+    private $navbarMenuTypeRepository;
+
+    public function __construct(NavbarMenuTypeRepository $navbarMenuTypeRepository){
+        $this->navbarMenuTypeRepository = $navbarMenuTypeRepository;
+    }
+
+
     public function index(){
-        $navbarMenuTypes = NavbarMenuType::get();
+        $navbarMenuTypes = $this->navbarMenuTypeRepository->all();
         return view('backend.modules.navbarMenuTypes.index', compact('navbarMenuTypes'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'type_name' => ['required', 'max:30']
-        ]);
+    public function store(NavbarMenuTypeRequest $request) {
+        
       // dd($request);
         try{
-            $navbarMenuType = new NavbarMenuType();
-            $navbarMenuType->type_name = $request->type_name;
+            $create = NavbarMenuType::create($request->all());
             
-            if($navbarMenuType->save()){
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -40,10 +48,10 @@ class NavbarMenuTypeController extends Controller
         // dd($id);
         try{
             $id = (int)$id;
-            $edits = NavbarMenuType::findOrFail($id);
+            $edits = $this->navbarMenuTypeRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $navbarMenuTypes = NavbarMenuType::get();
+                $navbarMenuTypes = $this->navbarMenuTypeRepository->all();
                 return view('backend.modules.navbarMenuTypes.index', compact('edits','navbarMenuTypes'));
             }
             else{
@@ -57,18 +65,14 @@ class NavbarMenuTypeController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'type_name' => ['required', 'max:30']
-        ]);
+    public function update(NavbarMenuTypeRequest $request, $id) {
         // dd($request);
         $id = (int)$id;
         try{
-            $navbarMenuType = NavbarMenuType::findOrFail($id);
-            $navbarMenuType->type_name = $request->type_name;
+            $navbarMenuType = $this->navbarMenuTypeRepository->findById($id);
             
-            if($navbarMenuType->save()){
-               
+            if($navbarMenuType){
+                $navbarMenuType->fill($request->all())->save();
                 session()->flash('success','NavbarMenuType updated successfully!');
 
                 return redirect(route('admin.navbarMenuTypes.index'));
@@ -88,8 +92,8 @@ class NavbarMenuTypeController extends Controller
     //    dd($id);
         $id=(int)$id;
         try{
-            $navbarMenuType = NavbarMenuType::findOrFail($id);
-            $navbarMenuType->delete();
+            $value = $this->navbarMenuTypeRepository->findById($id);
+            $value->delete();
             session()->flash('success','NavbarMenuType successfully deleted!');
             return back();
 

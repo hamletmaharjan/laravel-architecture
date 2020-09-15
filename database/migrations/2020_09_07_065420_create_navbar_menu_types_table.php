@@ -17,6 +17,7 @@ class CreateNavbarMenuTypesTable extends Migration
             $table->increments('id');
             $table->string('type_name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

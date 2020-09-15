@@ -15,12 +15,6 @@
             {!! Form::text('page_title',null,['class'=>'form-control','placeholder' => 'Example: Some Page']) !!}
             {!! $errors->first('page_title', '<span class="text-danger">:message</span>') !!}
         </div>
-        <div class="form-group {{ ($errors->has('slug'))?'has-error':'' }}">
-            <label>Slug
-            </label>
-        {!! Form::text('slug',null,['class'=>'form-control','placeholder' => 'Example: some-page']) !!}
-        {!! $errors->first('slug', '<span class="text-danger">:message</span>') !!}
-        </div>
 
         <div class="form-group {{ ($errors->has('content'))?'has-error':'' }}">
             <label>Content

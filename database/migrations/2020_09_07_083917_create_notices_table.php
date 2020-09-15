@@ -23,7 +23,7 @@ class CreateNoticesTable extends Migration
             $table->enum('status',['active','inactive'])->default('active');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

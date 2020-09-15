@@ -21,6 +21,7 @@ class CreateNavbarMenusTable extends Migration
             $table->integer('parent_id')->default(0);
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('navbar_menu_type_id')->references('id')->on('navbar_menu_types')->onDelete('cascade');
         });

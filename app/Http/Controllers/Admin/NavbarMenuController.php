@@ -6,33 +6,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Modules\NavbarMenu;
 use App\Models\Modules\NavbarMenuType;
+use App\Repository\Modules\NavbarMenuRepository;
+use App\Repository\Modules\NavbarMenuTypeRepository;
+use App\Http\Requests\Modules\NavbarMenuRequest;
 
 class NavbarMenuController extends Controller
 {
+
+    private $navbarMenuRepository;
+    private $navbarMenuTypeRepository;
+    public function __construct(NavbarMenuRepository $navbarMenuRepository,
+                                NavbarMenuTypeRepository $navbarMenuTypeRepository){
+        $this->navbarMenuTypeRepository = $navbarMenuTypeRepository;
+        $this->navbarMenuRepository = $navbarMenuRepository;
+    }
+
     public function index(){
-        $navbarMenus = NavbarMenu::get();
-        $navbarMenuTypes = NavbarMenuType::get();
+        $navbarMenus = $this->navbarMenuRepository->all();
+        $navbarMenuTypes = $this->navbarMenuTypeRepository->all();
         // $parentMenus = NavbarMenu::where('parent_id','=',0)->get();
-        //dd($parentMenus);
         return view('backend.modules.navbarMenus.index', compact('navbarMenus', 'navbarMenuTypes'));
     }
 
-    public function store(Request $request) {
+    public function store(NavbarMenuRequest $request) {
 
-        $request->validate([
-            'menu_name' => ['required', 'max:30'],
-            'page_slug' => ['required']
-        ]);
-        
         try{
-            $navbarMenu = new NavbarMenu();
-            $navbarMenu->menu_name = $request->menu_name;
-            $navbarMenu->navbar_menu_type_id = $request->navbar_menu_type_id;
-            $navbarMenu->page_slug = $request->page_slug;
-            $navbarMenu->parent_id = $request->parent_id;
-            $navbarMenu->status = $request->status;
+            $create = NavbarMenu::create($request->all());
             
-            if($navbarMenu->save()){
+            if($create){
                 session()->flash('success','Successfully created!');
                 return back();
             }else{
@@ -50,13 +51,13 @@ class NavbarMenuController extends Controller
         // dd($id);
         try{
             $id = (int)$id;
-            $edits = NavbarMenu::findOrFail($id);
+            $edits = $this->navbarMenuRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $navbarMenus = NavbarMenu::get();
-                $navbarMenuTypes = NavbarMenuType::get();
-                $parentMenus = NavbarMenu::where('parent_id',0)->get();
-                return view('backend.modules.navbarMenus.index', compact('edits','navbarMenus','navbarMenuTypes','parentMenus'));
+                $navbarMenus = $this->navbarMenuRepository->all();
+                $navbarMenuTypes = $this->navbarMenuTypeRepository->all();
+                // $parentMenus = NavbarMenu::where('parent_id',0)->get();
+                return view('backend.modules.navbarMenus.index', compact('edits','navbarMenus','navbarMenuTypes'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');
@@ -69,26 +70,16 @@ class NavbarMenuController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(NavbarMenuRequest $request, $id) {
 
         // dd($request);
 
-        $request->validate([
-            'menu_name' => ['required', 'max:30'],
-            'page_slug' => ['required']
-        ]);
-
         $id = (int)$id;
         try{
-            $navbarMenu = NavbarMenu::findOrFail($id);
-            $navbarMenu->menu_name = $request->menu_name;
-            $navbarMenu->navbar_menu_type_id = $request->navbar_menu_type_id;
-            $navbarMenu->page_slug = $request->page_slug;
-            $navbarMenu->parent_id = $request->parent_id;
-            $navbarMenu->status = $request->status;
+            $navbarMenu = $this->navbarMenuRepository->findById($id);
             
-            if($navbarMenu->save()){
-               
+            if($navbarMenu){
+                $navbarMenu->fill($request->all())->save();
                 session()->flash('success','NavbarMenu updated successfully!');
 
                 return redirect(route('admin.navbarMenus.index'));
@@ -108,8 +99,8 @@ class NavbarMenuController extends Controller
     //    dd($id);
         $id=(int)$id;
         try{
-            $navbarMenu = NavbarMenu::findOrFail($id);
-            $navbarMenu->delete();
+            $value = $this->navbarMenuRepository->findById($id);
+            $value->delete();
             session()->flash('success','NavbarMenu successfully deleted!');
             return back();
 

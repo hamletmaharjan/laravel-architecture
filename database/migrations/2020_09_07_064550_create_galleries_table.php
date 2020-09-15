@@ -17,6 +17,7 @@ class CreateGalleriesTable extends Migration
             $table->increments('id');
             $table->string('gallery_name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
