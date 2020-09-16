@@ -35,7 +35,7 @@
 
                 @if(helperPermission()['isAdd'])
 
-                    <div class="col-md-9" id="listing">
+                    <div class="col-md-12" id="listing">
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
@@ -44,8 +44,8 @@
                                         <h3 class="card-title"><i class="fa fa-list"></i> News</h3>
                                         <?php
 
-                                        $permission = helperPermissionLink(url('/admin/news'), url('/admin/news'));
-
+                                        $permission = helperPermissionLink(url('/admin/news/create'), url('/admin/news'));
+                                        $allowView = $permission['isView'];
                                         $allowEdit = $permission['isEdit'];
 
                                         $allowDelete = $permission['isDelete'];
@@ -91,7 +91,15 @@
                                                     </td>
 
                                                     <td class="text-right row" style="margin-right: 0px;">
-                                                    @if($allowEdit)
+                                                        @if($allowView)
+                                                        <a href="{{route('admin.news.show',[$newsItem->id])}}"
+                                                            class="text-info btn btn-xs btn-default"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top" title="Show">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>&nbsp;
+                                                        @endif
+                                                        @if($allowEdit)
                                                             <a href="{{route('admin.news.edit',[$newsItem->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
                                                                data-placement="top" title="Edit" style="margin:0px 5px;">
@@ -128,17 +136,7 @@
                                 <!-- /.card -->
                             </div>
 
-                            @if($allowAdd)
-
-                                <div class="col-md-3">
-                                    @if(\Request::segment(4)=='edit')
-                                        @include('backend.modules.news.edit')
-                                    @else
-                                        @include('backend.modules.news.create')
-                                    @endif
-
-                                </div>
-                            @endif
+                            
 
                     </div>
             </div>

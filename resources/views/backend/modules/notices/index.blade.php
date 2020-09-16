@@ -35,7 +35,7 @@
 
                 @if(helperPermission()['isAdd'])
 
-                    <div class="col-md-9" id="listing">
+                    <div class="col-md-12" id="listing">
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
@@ -44,8 +44,9 @@
                                         <h3 class="card-title"><i class="fa fa-list"></i> Notices</h3>
                                         <?php
 
-                                        $permission = helperPermissionLink(url('/admin/notices'), url('/admin/notices'));
+                                        $permission = helperPermissionLink(url('/admin/notices/create'), url('/admin/notices'));
 
+                                        $allowView = $permission['isView'];
                                         $allowEdit = $permission['isEdit'];
 
                                         $allowDelete = $permission['isDelete'];
@@ -91,7 +92,14 @@
                                                     </td>
 
                                                     <td class="text-right row" style="margin-right: 0px;">
-                                                    @if($allowEdit)
+                                                        @if($allowView)
+                                                            <a href="{{route('admin.notices.show',[$notice->id])}}"
+                                                               class="text-info btn btn-xs btn-default" data-toggle="tooltip"
+                                                               data-placement="top" title="View" style="margin:0px 5px;">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        @endif
+                                                        @if($allowEdit)
                                                             <a href="{{route('admin.notices.edit',[$notice->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
                                                                data-placement="top" title="Edit" style="margin:0px 5px;">
@@ -128,17 +136,7 @@
                                 <!-- /.card -->
                             </div>
 
-                            @if($allowAdd)
-
-                                <div class="col-md-3">
-                                    @if(\Request::segment(4)=='edit')
-                                        @include('backend.modules.notices.edit')
-                                    @else
-                                        @include('backend.modules.notices.create')
-                                    @endif
-
-                                </div>
-                            @endif
+                            
 
                     </div>
             </div>

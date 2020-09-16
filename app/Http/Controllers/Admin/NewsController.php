@@ -27,6 +27,10 @@ class NewsController extends Controller
         return view('backend.modules.news.index', compact('news'));
     }
 
+    public function create() {
+        return view('backend.modules.news.create');
+    }
+
     public function store(NewsRequest $request) {
         
        // dd($request);
@@ -42,7 +46,7 @@ class NewsController extends Controller
             $create = News::create($input);
             if($create){
                 session()->flash('success','Successfully created!');
-                return back();
+                return redirect()->route('admin.news.index');
             }else{
                 session()->flash('error','Could not be created!');
                 return back();
@@ -54,14 +58,18 @@ class NewsController extends Controller
         }
     }
 
+    public function show($id) {
+        $news = $this->newsRepository->findById($id);
+        return view('backend.modules.news.show', compact('news'));
+    }
+
     public function edit($id) {
         try{
             $id = (int)$id;
             $edits = $this->newsRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $news = $this->newsRepository->all();
-                return view('backend.modules.news.index', compact('edits','news'));
+                return view('backend.modules.news.edit', compact('edits'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');

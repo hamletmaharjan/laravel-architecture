@@ -25,6 +25,10 @@ class NoticeController extends Controller
         return view('backend.modules.notices.index', compact('notices'));
     }
 
+    public function create() {
+        return view('backend.modules.notices.create');
+    }
+
     public function store(NoticeRequest $request) {
         try{
             $input = $request->except('file');
@@ -37,7 +41,7 @@ class NoticeController extends Controller
             $create = Notice::create($input);
             if($create){
                 session()->flash('success','Successfully created!');
-                return back();
+                return redirect()->route('admin.notices.index');
             }else{
                 session()->flash('error','Could not be created!');
                 return back();
@@ -49,13 +53,18 @@ class NoticeController extends Controller
         }
     }
 
+    public function show($id) {
+        $notice = $this->noticeRepository->findById($id);
+        return view('backend.modules.notices.show');
+    }
+
     public function edit($id) {
         try{
             $id = (int)$id;
             $edits = $this->noticeRepository->findById($id);
             if ($edits->count() > 0) {
-                $notices = $this->noticeRepository->all();
-                return view('backend.modules.notices.index', compact('edits','notices'));
+                
+                return view('backend.modules.notices.edit', compact('edits'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');

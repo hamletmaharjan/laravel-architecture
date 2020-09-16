@@ -24,6 +24,10 @@ class EventController extends Controller
         return view('backend.modules.events.index', compact('events'));
     }
 
+    public function create() {
+        return view('backend.modules.events.create');
+    }
+
     public function store(EventRequest $request) {
         // dd($request);
         try{
@@ -32,7 +36,7 @@ class EventController extends Controller
             $create = Event::create($input);
             if($create){
                 session()->flash('success','Event successfully created!');
-                return back();
+                return redirect()->route('admin.events.index');
             }else{
                 session()->flash('error','Event could not be created!');
                 return back();
@@ -44,14 +48,19 @@ class EventController extends Controller
         }
     }
 
+    public function show($id) {
+        $event = $this->eventRepository->findById($id);
+        return view('backend.modules.events.show', compact('event'));
+    }
+
     public function edit($id) {
         try{
             $id = (int)$id;
             $edits = $this->eventRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $events = $this->eventRepository->all();
-                return view('backend.modules.events.index', compact('edits','events'));
+                
+                return view('backend.modules.events.edit', compact('edits'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');

@@ -35,7 +35,7 @@
 
                 @if(helperPermission()['isAdd'])
 
-                    <div class="col-md-9" id="listing">
+                    <div class="col-md-12" id="listing">
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
@@ -44,8 +44,9 @@
                                         <h3 class="card-title"><i class="fa fa-list"></i> Events</h3>
                                         <?php
 
-                                        $permission = helperPermissionLink(url('/admin/events'), url('/admin/events'));
+                                        $permission = helperPermissionLink(url('/admin/events/create'), url('/admin/events'));
 
+                                        $allowView = $permission['isView'];
                                         $allowEdit = $permission['isEdit'];
 
                                         $allowDelete = $permission['isDelete'];
@@ -97,6 +98,13 @@
                                                     </td>
 
                                                     <td class="text-right row" style="margin-right: 0px;">
+                                                        @if($allowView)
+                                                            <a href="{{route('admin.events.show',[$event->id])}}"
+                                                               class="text-info btn btn-xs btn-default" data-toggle="tooltip"
+                                                               data-placement="top" title="View" style="margin:0px 5px;">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        @endif
                                                         @if($allowEdit)
                                                             <a href="{{route('admin.events.edit',[$event->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
@@ -134,17 +142,7 @@
                                 <!-- /.card -->
                             </div>
 
-                            @if($allowAdd)
-
-                                <div class="col-md-3">
-                                    @if(\Request::segment(4)=='edit')
-                                        @include('backend.modules.events.edit')
-                                    @else
-                                        @include('backend.modules.events.create')
-                                    @endif
-
-                                </div>
-                            @endif
+                            
 
                     </div>
             </div>

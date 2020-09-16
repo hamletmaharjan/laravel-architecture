@@ -35,7 +35,7 @@
 
                 @if(helperPermission()['isAdd'])
 
-                    <div class="col-md-6" id="listing">
+                    <div class="col-md-12" id="listing">
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
@@ -44,8 +44,9 @@
                                         <h3 class="card-title"><i class="fa fa-list"></i> Pages</h3>
                                         <?php
 
-                                        $permission = helperPermissionLink(url('/admin/pages'), url('/admin/pages'));
+                                        $permission = helperPermissionLink(url('/admin/pages/create'), url('/admin/pages'));
 
+                                        $allowView = $permission['isView'];
                                         $allowEdit = $permission['isEdit'];
 
                                         $allowDelete = $permission['isDelete'];
@@ -89,7 +90,14 @@
                                                     </td>
 
                                                     <td class="text-right row" style="margin-right: 0px;">
-                                                    @if($allowEdit)
+                                                        @if($allowView)
+                                                            <a href="{{route('admin.pages.show',[$page->id])}}"
+                                                               class="text-info btn btn-xs btn-default" data-toggle="tooltip"
+                                                               data-placement="top" title="View" style="margin:0px 5px;">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        @endif
+                                                        @if($allowEdit)
                                                             <a href="{{route('admin.pages.edit',[$page->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
                                                                data-placement="top" title="Edit" style="margin:0px 5px;">
@@ -126,17 +134,7 @@
                                 <!-- /.card -->
                             </div>
 
-                            @if($allowAdd)
-
-                                <div class="col-md-6">
-                                    @if(\Request::segment(4)=='edit')
-                                        @include('backend.modules.pages.edit')
-                                    @else
-                                        @include('backend.modules.pages.create')
-                                    @endif
-
-                                </div>
-                            @endif
+                            
 
                     </div>
             </div>

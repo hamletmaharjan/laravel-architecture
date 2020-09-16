@@ -60,6 +60,11 @@ class GalleryImageController extends Controller
         }
     }
 
+    public function show($id) {
+        $galleryImage = $this->galleryImageRepository->findById($id);
+        return view('backend.modules.galleryImages.show', compact('galleryImage'));
+    }
+
     public function edit($id) {
         // dd($id);
         try{

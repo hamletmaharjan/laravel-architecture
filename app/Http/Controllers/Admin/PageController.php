@@ -26,6 +26,10 @@ class PageController extends Controller
         return view('backend.modules.pages.index', compact('pages'));
     }
 
+    public function create() {
+        return view('backend.modules.pages.create');
+    }
+
     public function store(PageRequest $request) {
 
         $input = $request->except('file');
@@ -41,7 +45,7 @@ class PageController extends Controller
             $create = Page::create($input);
             if($create){
                 session()->flash('success','Page successfully created!');
-                return back();
+                return redirect()->route('admin.pages.index');
             }else{
                 session()->flash('error','Page could not be created!');
                 return back();
@@ -54,7 +58,8 @@ class PageController extends Controller
     }
 
     public function show($id) {
-        $post = $this->pageRepository->findById($id);
+        $page = $this->pageRepository->findById($id);
+        return view('backend.modules.pages.show', compact('page'));
     }
 
     public function edit($id) {
@@ -63,8 +68,8 @@ class PageController extends Controller
             $edits = $this->pageRepository->findById($id);
             if ($edits->count() > 0)
             {
-                $pages = $this->pageRepository->all();
-                return view('backend.modules.pages.index', compact('edits','pages'));
+                
+                return view('backend.modules.pages.edit', compact('edits'));
             }
             else{
                 session()->flash('error','Id could not be obtained!');

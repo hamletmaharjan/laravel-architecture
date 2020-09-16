@@ -45,7 +45,7 @@
                                         <?php
 
                                         $permission = helperPermissionLink(url('/admin/galleryImages'), url('/admin/galleryImages'));
-
+                                        $allowView = $permission['isView'];
                                         $allowEdit = $permission['isEdit'];
 
                                         $allowDelete = $permission['isDelete'];
@@ -93,6 +93,13 @@
                                                     </td>
 
                                                     <td class="text-right row" style="margin-right: 0px;">
+                                                        @if($allowView)
+                                                            <a href="{{route('admin.galleryImages.show',[$galleryImage->id])}}"
+                                                               class="text-info btn btn-xs btn-default" data-toggle="tooltip"
+                                                               data-placement="top" title="View" style="margin:0px 5px;">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        @endif
                                                         @if($allowEdit)
                                                             <a href="{{route('admin.galleryImages.edit',[$galleryImage->id])}}"
                                                                class="text-info btn btn-xs btn-default" data-toggle="tooltip"
