@@ -31,4 +31,9 @@ class PostRepository
         return $result;
     }
 
+    public function allActive() {
+        $result = $this->post->where('status', 'active')->get();
+        return $result;
+    }
+
 }

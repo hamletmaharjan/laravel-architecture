@@ -4,18 +4,24 @@ Auth::routes();
 // Route::get('/',function (){
 //     return Redirect::to('/login');
 // });
-Route::get('/', function() {
-    return view('front.index');
-});
+Route::get('/', 'Front\HomeController@index');
+
 Route::resource('/posts', 'Front\PostController')->only([
     'index', 'show'
 ]);
 Route::resource('/news', 'Front\NewsController')->only([
     'index', 'show'
 ]);
-// Route::get('/about', function() {
-//     return view('front.about');
-// });
+Route::resource('/galleries', 'Front\GalleryController')->only([
+    'index', 'show'
+]);
+Route::resource('/events', 'Front\EventController')->only([
+    'index', 'show'
+]);
+Route::get('/pages/{slug}', 'Front\PageController@show');
+Route::get('/about', function() {
+    return view('front.about');
+});
 // // Route::get('/posts', 'Admin\PostController@getAll')->name('posts.index');
 // Route::resources([
 //     'posts' => 'Front\PostController'
@@ -23,7 +29,7 @@ Route::resource('/news', 'Front\NewsController')->only([
 // Route::get('/news', 'Admin\NewsController@getAll')->name('news.index');
 // Route::get('/events', 'Admin\EventController@getAll')->name('events.index');
 // Route::get('/notices', 'Admin\NoticeController@getAll')->name('notices.index');
-// Route::get('/pages/{slug}', 'Front\PageController@show')->name('page.show');
+
 // Route::get('/galleries/{id}', 'Admin\GalleryController@getImages')->name('galleries.show');
 
 

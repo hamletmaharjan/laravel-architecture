@@ -27,6 +27,9 @@
 
   <!-- Template Main CSS File -->
   <link href="{{asset('front/css/style.css')}}" rel="stylesheet">
+  <style>
+  
+  </style>
 
   <!-- =======================================================
   * Template Name: Mamba - v2.2.0

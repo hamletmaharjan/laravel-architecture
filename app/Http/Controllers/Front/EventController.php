@@ -22,7 +22,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = $this->eventRepository->all();
+        $events = $this->eventRepository->allActive();
+        
         return view('front.events.index', compact('events'));
     }
 
@@ -55,7 +56,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $event = $this->eventRepository->findById($id);
+        return view('front.events.show', compact('event'));
     }
 
     /**

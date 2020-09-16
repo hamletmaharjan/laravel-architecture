@@ -31,4 +31,9 @@ class EventRepository
         return $result;
     }
 
+    public function allActive() {
+        $result = $this->event->where('status', 'active')->get();
+        return $result;
+    }
+
 }

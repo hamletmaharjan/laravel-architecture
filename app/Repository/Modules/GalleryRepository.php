@@ -31,4 +31,15 @@ class GalleryRepository
         return $result;
     }
 
+    public function galleryImagesById($id) {
+        $result = $this->gallery->galleryImages->get();
+        return $result;
+    }
+
+    public function slides() {
+        $gallery = $this->gallery->where('gallery_name', 'Slides')->first();
+        $result = $gallery->galleryImages()->get();
+        return $result;
+    }
+
 }

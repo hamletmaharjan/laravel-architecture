@@ -8,7 +8,7 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="section-title">
-                <h2>{{$gallery->gallery_name}}</h2>
+                <h2>Galleries</h2>
                 <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
 <!-- 
@@ -24,22 +24,38 @@
                 </div> -->
 
                 <div class="row portfolio-container">
-                @foreach($galleryImages as $galleryImage)
-                    
+                @foreach($galleries as $gallery)
+                    <?php $galleryImage = $gallery->galleryImages->first();
+                     ?>
+                    @if($galleryImage)
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                         <div class="portfolio-wrap">
                         <img src="{{asset('uploads/galleryImages/'.$galleryImage->image)}}" class="img-fluid" alt="">
                         <div class="portfolio-info">
-                            <h4>{{$galleryImage->title}}</h4>
+                            <h4>{{$gallery->gallery_name}}</h4>
                             <p>App</p>
                             <div class="portfolio-links">
                             <a href="{{asset('uploads/galleryImages/'.$galleryImage->image)}}" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="icofont-eye"></i></a>
-                            
+                            <a href="{{url('/galleries/'.$gallery->id)}}" title="More Details"><i class="icofont-external-link"></i></a>
                             </div>
                         </div>
                         </div>
                     </div>
-                    
+                    @else
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                        <div class="portfolio-wrap">
+                        <img src="{{asset('front/img/portfolio/portfolio-4.jpg')}}" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>{{$gallery->gallery_name}}</h4>
+                            <p>App</p>
+                            <div class="portfolio-links">
+                            <a href="{{asset('front/img/portfolio/portfolio-4.jpg')}}" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="icofont-eye"></i></a>
+                            <a href="{{url('/galleries/'.$gallery->id)}}" title="More Details"><i class="icofont-external-link"></i></a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    @endif
                 @endforeach
                 </div>
 

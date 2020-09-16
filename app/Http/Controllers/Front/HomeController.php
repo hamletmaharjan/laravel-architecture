@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repository\Modules\GalleryRepository;
 
-class GalleryController extends Controller
+class HomeController extends Controller
 {
+
     private $galleryRepository;
 
     public function __construct(GalleryRepository $galleryRepository){
         $this->galleryRepository = $galleryRepository;
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +21,9 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = $this->galleryRepository->all();
-        return view('front.galleries.index', compact('galleries'));
+        $slides = $this->galleryRepository->slides();
+        // dd($slides);
+        return view('front.index', compact('slides'));
     }
 
     /**
@@ -55,9 +55,7 @@ class GalleryController extends Controller
      */
     public function show($id)
     {
-        $gallery = $this->galleryRepository->findById($id);
-        $galleryImages = $gallery->galleryImages()->where('status','active')->get();
-        return view('front.galleries.show', compact('gallery', 'galleryImages'));
+        //
     }
 
     /**

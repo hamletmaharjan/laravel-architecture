@@ -31,6 +31,7 @@
                 <li><a href="{{$menu->page_slug}}">{{$menu->menu_name}}</a></li>
                 @endif
             @endforeach
+            
                 <!-- <li class="active"><a href="index.html">Home</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
