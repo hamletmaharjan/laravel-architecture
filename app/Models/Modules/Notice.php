@@ -9,4 +9,8 @@ class Notice extends Model
 {
     use SoftDeletes;
     protected $fillable = ['title', 'content', 'file', 'notice_date', 'display_order', 'status', 'user_id'];
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -55,7 +55,7 @@ class NoticeController extends Controller
 
     public function show($id) {
         $notice = $this->noticeRepository->findById($id);
-        return view('backend.modules.notices.show');
+        return view('backend.modules.notices.show', compact('notice'));
     }
 
     public function edit($id) {

@@ -25,11 +25,22 @@
     </section>
 <!-- Main content -->
     <section class="content">
-        <div class="card card-default">
-            hello
-            <!-- /.card-body -->
+        <div class="container-fluid">
+            <div class="card card-default" style="padding:20px;">
+                <h1>{{$event->title}}</h1>
+                
+                <p>Start Date: {{$event->start_date}}</p>
+                <p>End Date: {{$event->end_date}}</p>
+                <p>Start Time: {{$event->start_time}}</p>
+                <p>End Time: {{$event->end_time}}</p>
+                <p>Status: {{$event->status}}</p>
+                <p>Created by: {{$event->user->name}}</p>
+                <p>Venue: {{$event->venue}}</p>
+                
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
 
     </section>
 </div>

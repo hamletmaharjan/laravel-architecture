@@ -25,11 +25,21 @@
     </section>
 <!-- Main content -->
     <section class="content">
-        <div class="card card-default">
-            hello
-            <!-- /.card-body -->
+        <div class="container-fluid">
+            <div class="card card-default" style="padding:20px;">
+                <h1>{{$notice->title}}</h1>
+                
+                <p>Content: {{$notice->content}}</p>
+                <p>Notice Date: {{$notice->notice_date}}</p>
+                <p>Status: {{$notice->status}}</p>
+                <p>Created by: {{$notice->user->name}}</p>
+                @if($news->file)
+                <p>File: <a href="{{asset('uploads/notices/'.$notice->file)}}">download</a></p>
+                @endif
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
 
     </section>
 </div>

@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function news() {
         return $this->hasMany('App\Models\Modules\News');
     }
+
+    public function notices() {
+        return $this->hasMany('App\Models\Modules\Notice');
+    }
 }

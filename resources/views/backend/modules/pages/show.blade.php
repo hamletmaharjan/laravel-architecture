@@ -25,11 +25,18 @@
     </section>
 <!-- Main content -->
     <section class="content">
-        <div class="card card-default">
-            hello
-            <!-- /.card-body -->
+        <div class="container-fluid">
+            <div class="card card-default" style="padding:20px;">
+                <h1>{{$page->page_title}}</h1> <br>
+                
+                <p>{{$page->content}}</p>
+                <!-- /.card-body -->
+                @if($page->file)
+                <p>File: <a href="{{asset('uploads/pages/'.$page->file)}}">download</a></p>
+                @endif
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
 
     </section>
 </div>

@@ -25,11 +25,19 @@
     </section>
 <!-- Main content -->
     <section class="content">
-        <div class="card card-default">
-            hello
-            <!-- /.card-body -->
+        <div class="container-fluid">
+            <div class="card card-default" style="padding:20px;">
+                <h1>{{$galleryImage->title}}</h1>
+                <img src="{{asset('uploads/galleryImages/'.$galleryImage->image)}}" width="80%" height="auto">
+                
+                <p>Gallery: {{$galleryImage->gallery->gallery_name}}</p>
+                <p>Status: {{$galleryImage->status}}</p>
+                
+                
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
 
     </section>
 </div>
