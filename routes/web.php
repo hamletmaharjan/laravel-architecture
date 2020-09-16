@@ -18,6 +18,9 @@ Route::resource('/galleries', 'Front\GalleryController')->only([
 Route::resource('/events', 'Front\EventController')->only([
     'index', 'show'
 ]);
+Route::resource('/notices', 'Front\NoticeController')->only([
+    'index', 'show'
+]);
 Route::get('/pages/{slug}', 'Front\PageController@show');
 Route::get('/about', function() {
     return view('front.about');

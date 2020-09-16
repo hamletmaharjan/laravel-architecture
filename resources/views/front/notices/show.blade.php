@@ -1,5 +1,5 @@
 @extends('front.layouts.app')
-@section('title','Events')
+@section('title','Notices')
 
 @section('content')
 
@@ -8,10 +8,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>{{$event->title}}</h2>
+          <h2>{{$notice->title}}</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Events</li>
+            <li>Notices</li>
           </ol>
         </div>
 
@@ -20,14 +20,12 @@
 
     <section class="inner-page">
       <div class="container">
-        <p>Start Date - {{$event->start_date}}</p>
-        <p>Start Date - {{$event->start_date}}</p>
-        <p>End Date - {{$event->end_date}}</p>
-        <p>Start Time - {{$event->start_time}}</p>
-        <p>End Time - {{$event->end_time}}</p>
-        <p>Status - {{$event->status}}</p>
-        <p>Created by - {{$event->user->name}}</p>
-        <p>Venue - {{$event->venue}}</p>
+        <p>
+          {{$notice->content}}
+        </p>
+        @if($notice->file)
+        <p>File: <a href="{{asset('uploads/notices/'.$notice->file)}}">download</a></p>
+        @endif
       </div>
     </section>
 @endsection

@@ -22,7 +22,8 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notices = $this->noticeRepository->all();
+        $notices = $this->noticeRepository->allActive();
+        // dd($notices);
         return view('front.notices.index', compact('notices'));
     }
 
@@ -55,7 +56,8 @@ class NoticeController extends Controller
      */
     public function show($id)
     {
-        //
+        $notice = $this->noticeRepository->findById($id);
+        return view('front.notices.show', compact('notice'));
     }
 
     /**

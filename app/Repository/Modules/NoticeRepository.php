@@ -31,4 +31,9 @@ class NoticeRepository
         return $result;
     }
 
+    public function allActive() {
+        $result = $this->notice->where('status', 'active')->orderBy('display_order','asc')->get();
+        return $result;
+    }
+
 }

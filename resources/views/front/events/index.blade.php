@@ -15,7 +15,7 @@
         @foreach($events as $event)
           <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
             <div class="icon"><i class="icofont-tasks-alt"></i></div>
-            <h4 class="title"><a href="">{{$event->title}}</a></h4>
+            <h4 class="title"><a href="{{url('/events/'.$event->id)}}">{{$event->title}}</a></h4>
             <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
           </div>
         @endforeach
