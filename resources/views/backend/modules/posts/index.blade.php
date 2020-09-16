@@ -35,7 +35,7 @@
 
                 @if(helperPermission()['isAdd'])
 
-                    <div class="col-md-9" id="listing">
+                    <div class="col-md-12" id="listing">
                         @else
                             <div class="col-md-12" id="listing">
                                 @endif
@@ -44,7 +44,7 @@
                                         <h3 class="card-title"><i class="fa fa-list"></i> Posts</h3>
                                         <?php
 
-                                        $permission = helperPermissionLink(url('/admin/posts'), url('/admin/posts'));
+                                        $permission = helperPermissionLink(url('/admin/posts/create'), url('/admin/posts'));
 
                                         $allowEdit = $permission['isEdit'];
 
@@ -77,7 +77,7 @@
                                                         <tr>
                                                             <th scope=row>{{$i++}}</th>
                                                             <td>{{$post->title}}</td>
-                                                            <td>{{$post->content}}</td>
+                                                            <td>{{substr($post->content, 0 , 100)}}...</td>
                                                             <td>1</td>
                                                             <td>
                                                             
@@ -99,6 +99,12 @@
                                                                 
                                                             </td>
                                                             <td class="text-right row" style="margin: 0px;">
+                                                                    <a href="{{route('admin.posts.show',[$post->id])}}"
+                                                                       class="text-info btn btn-xs btn-default"
+                                                                       data-toggle="tooltip"
+                                                                       data-placement="top" title="Show">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>&nbsp;
                                                                 @if($allowEdit)
                                                                     <a href="{{route('admin.posts.edit',[$post->id])}}"
                                                                        class="text-info btn btn-xs btn-default"
@@ -144,17 +150,7 @@
                                 <!-- /.card -->
                             </div>
 
-                            @if($allowAdd)
-
-                                <div class="col-md-3">
-                                    @if(\Request::segment(4)=='edit')
-                                        @include('backend.modules.posts.edit')
-                                    @else
-                                        @include('backend.modules.posts.create')
-                                    @endif
-
-                                </div>
-                            @endif
+                            
 
                     </div>
             </div>

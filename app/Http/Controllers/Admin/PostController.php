@@ -28,7 +28,7 @@ class PostController extends Controller
 
 
     public function create(){
-    	//
+    	return view('backend.modules.posts.create');
     }
 
     public function store(PostRequest $request){
@@ -46,7 +46,7 @@ class PostController extends Controller
             $create = Post::create($input);
             if($create){
                 session()->flash('success','Post successfully created!');
-                return back();
+                return redirect(route('admin.posts.index'));
             }else{
                 session()->flash('error','Post could not be created!');
                 return back();
@@ -61,14 +61,14 @@ class PostController extends Controller
 
     public function show($id) {
         $post = $this->postRepository->findById($id);
-        dd($post);
+        return view('backend.modules.posts.show', compact('post'));
     }
 
     public function edit($id){
     	$posts = $this->postRepository->all();
     	$edits = $this->postRepository->findById($id);
         
-        return view('backend.modules.posts.index', compact('posts','edits'));
+        return view('backend.modules.posts.edit', compact('posts','edits'));
     	
     }
 
