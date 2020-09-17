@@ -28,7 +28,7 @@
                     </ul>
                 </li>
                 @else
-                <li><a href="{{$menu->page_slug}}">{{$menu->menu_name}}</a></li>
+                <li class="{{ request()->is(substr($menu->page_slug,1).'*') ? 'active' : '' }}"><a href="{{$menu->page_slug}}">{{$menu->menu_name}}</a></li>
                 @endif
             @endforeach
             

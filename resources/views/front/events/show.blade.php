@@ -25,7 +25,6 @@
         <p>End Date - {{$event->end_date}}</p>
         <p>Start Time - {{$event->start_time}}</p>
         <p>End Time - {{$event->end_time}}</p>
-        <p>Status - {{$event->status}}</p>
         <p>Created by - {{$event->user->name}}</p>
         <p>Venue - {{$event->venue}}</p>
       </div>

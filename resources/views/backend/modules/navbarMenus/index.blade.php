@@ -60,7 +60,7 @@
                                                 <th style="width: 10px;">{{trans('app.sn')}}</th>
                                                 <th>Menu Name</th>
                                                 <th>Menu Type</th>
-                                                <th>Page Slug</th>
+                                                <th>Page Link</th>
                                                 <th>Parent Id</th>
                                                 <th style="width: 10px"
                                                     class="text-right">Status</th>
